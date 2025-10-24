@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { AddressAutocomplete } from "@/components/ui/address-autocomplete";
+import { AddressSelect } from "@/components/ui/address-select";
 import {
   FormField,
   FormItem,
@@ -90,7 +90,7 @@ export function Step1() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <AddressAutocomplete
+                      <AddressSelect
                         placeholder="Address"
                         value={field.value}
                         onChange={field.onChange}
