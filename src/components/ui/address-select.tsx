@@ -200,7 +200,7 @@ const AddressSelect = React.forwardRef<HTMLButtonElement, AddressSelectProps>(
               />
             </div>
 
-            <div className="max-h-[300px] overflow-y-auto">
+            <div className="max-h-[400px] overflow-y-auto">
               {isLoading ? (
                 <div className="px-3 py-2 text-gray-400 text-center">
                   Searching addresses...

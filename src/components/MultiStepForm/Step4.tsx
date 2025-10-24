@@ -459,7 +459,7 @@ export function Step4() {
                       id="confirmation"
                       checked={field.value}
                       onChange={(e) => field.onChange(e.target.checked)}
-                      className="w-5 h-5 text-[#cdfa00] bg-[#1a1a1a] border-gray-600 rounded focus:ring-[#cdfa00] focus:ring-2"
+                      className="w-5 h-5 text-primary bg-[#1a1a1a] border-gray-600 rounded focus:ring-primary focus:ring-2"
                     />
                     <label
                       htmlFor="confirmation"

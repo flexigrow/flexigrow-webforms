@@ -11,16 +11,20 @@ export enum Step {
 
 // Step-specific validation schemas
 export const step1Schema = z.object({
-  yourName: z.string().min(2, "Name must be at least 2 characters"),
-  businessName: z.string().min(2, "Business name is required"),
+  yourName: z.string().min(1, "Name is required"),
+  businessName: z.string().min(1, "Business name is required"),
   abn: z
     .string()
-    .min(11, "ABN must be 11 digits")
-    .max(11, "ABN must be 11 digits"),
+    .min(1, "ABN is required")
+    .regex(/^\d+$/, "ABN must be only digits")
+    .length(11, "ABN must be exactly 11 digits"),
   address: z.string().min(5, "Address is required"),
   website: z.string().url("Must be a valid URL").optional().or(z.literal("")),
-  email: z.string().email("Invalid email address"),
-  phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  phoneNumber: z
+    .string()
+    .min(1, "Phone number is required")
+    .min(10, "Phone number must be at least 10 digits"),
 });
 
 export const step2Schema = z.object({

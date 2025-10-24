@@ -112,7 +112,7 @@ export function MultiStepForm() {
   };
 
   return (
-    <div className="text-white p-6 sm:p-12">
+    <div className="bg-[#080808] text-white p-6 sm:p-12">
       <div className="mx-auto">
         {/* Step Indicator */}
         <div className="mb-16">
@@ -155,7 +155,7 @@ export function MultiStepForm() {
                 {index < steps.length - 1 && (
                   <div
                     className={`h-[1px] flex-1 mx-3 transition-colors ${
-                      step.id < currentStep ? "bg-[#cdfa00]" : "bg-gray-800"
+                      step.id < currentStep ? "bg-primary" : "bg-gray-800"
                     }`}
                   />
                 )}
@@ -189,51 +189,51 @@ export function MultiStepForm() {
                 />
               )}
             </Form>
+
+            {/* Global Navigation Buttons */}
+            {currentStep < Step.CONFIRMATION && (
+              <div className="flex items-center justify-between">
+                <div className="flex gap-6 text-sm">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Terms of Service
+                  </a>
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Privacy Policy
+                  </a>
+                </div>
+
+                <div className="flex gap-4">
+                  {currentStep > Step.YOUR_DETAILS && (
+                    <Button
+                      onClick={handlePrevious}
+                      className="bg-black hover:border-white border-solid border border-white text-white font-semibold px-20 py-6 text-base rounded-full transition-colors"
+                      size="lg"
+                    >
+                      Previous
+                    </Button>
+                  )}
+                  <Button
+                    onClick={handleNext}
+                    className="bg-primary hover:bg-primary-hover text-black font-semibold px-20 py-6 text-base rounded-full transition-colors"
+                    size="lg"
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="col-span-4 content-center">
             <SideContent items={sideContentItems} />
           </div>
         </div>
-
-        {/* Global Navigation Buttons */}
-        {currentStep < Step.CONFIRMATION && (
-          <div className="flex items-center justify-between pt-8 border-t border-gray-900">
-            <div className="flex gap-6 text-sm">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Privacy Policy
-              </a>
-            </div>
-
-            <div className="flex gap-4">
-              {currentStep > Step.YOUR_DETAILS && (
-                <Button
-                  onClick={handlePrevious}
-                  className="bg-black hover:border-white border-solid border border-white text-white font-semibold px-20 py-6 text-base rounded-full transition-colors"
-                  size="lg"
-                >
-                  Previous
-                </Button>
-              )}
-              <Button
-                onClick={handleNext}
-                className="bg-[#cdfa00] hover:bg-[#b8e600] text-black font-semibold px-20 py-6 text-base rounded-full transition-colors"
-                size="lg"
-              >
-                Next
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

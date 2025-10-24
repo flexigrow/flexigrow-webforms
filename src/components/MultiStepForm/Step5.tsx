@@ -15,7 +15,7 @@ export function Step5({
       <div className="mb-16">
         <h1 className="text-4xl font-bold text-white mb-4">
           Hi {firstName}! Welcome to Flexigrow, we're{" "}
-          <span className="text-[#cdfa00]">glad you're here!</span>
+          <span className="text-primary">glad you're here!</span>
         </h1>
         <p className="text-xl text-white">
           Let's get started, we just sent an email to you at {email}
@@ -29,7 +29,7 @@ export function Step5({
         <div className="space-y-8 text-left">
           {/* Step 1: Account Setup */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#cdfa00]">
+            <h3 className="text-2xl font-bold text-primary">
               1. Your account is already set up
             </h3>
             <p className="text-lg text-white">
@@ -39,7 +39,7 @@ export function Step5({
 
           {/* Step 2: Start Using */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#cdfa00]">
+            <h3 className="text-2xl font-bold text-primary">
               2. Start using Flexigrow
             </h3>
             <p className="text-lg text-white">
@@ -55,7 +55,7 @@ export function Step5({
               // In a real app, this would redirect to the login page
               window.open("https://flexigrow.com/login", "_blank");
             }}
-            className="bg-[#cdfa00] hover:bg-[#b8e600] text-black font-bold px-12 py-6 text-xl rounded-full transition-colors"
+            className="bg-primary hover:bg-primary-hover text-black font-bold px-12 py-6 text-xl rounded-full transition-colors"
             size="lg"
           >
             Log in
