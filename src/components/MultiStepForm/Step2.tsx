@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
 import { generalLiabilityActivities } from "./data";
+import { NumericFormat } from "react-number-format";
 
 export function Step2() {
   const form = useFormContext<UnifiedFormData>();
@@ -223,29 +224,12 @@ export function Step2() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
+                      <NumericFormat
+                        customInput={Input}
                         placeholder="Number of Employees? (Full & Part Time)"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        onKeyDown={(e) => {
-                          // Allow: backspace, delete, tab, escape, enter
-                          if (
-                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-                            (e.keyCode === 65 && e.ctrlKey === true) ||
-                            (e.keyCode === 67 && e.ctrlKey === true) ||
-                            (e.keyCode === 86 && e.ctrlKey === true) ||
-                            (e.keyCode === 88 && e.ctrlKey === true)
-                          ) {
-                            return;
-                          }
-                          // Ensure that it is a number and stop the keypress
-                          if (
-                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
-                            (e.keyCode < 96 || e.keyCode > 105)
-                          ) {
-                            e.preventDefault();
-                          }
-                        }}
+                        allowNegative={false}
+                        decimalScale={0}
                         {...field}
                       />
                     </FormControl>
