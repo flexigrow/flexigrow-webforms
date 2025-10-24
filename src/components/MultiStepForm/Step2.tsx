@@ -51,14 +51,14 @@ export function Step2() {
                         value="public-liability"
                         checked={field.value === "public-liability"}
                         onChange={(e) => field.onChange(e.target.value)}
-                        label="Public Liability"
+                        label="Public Liability & Professional Indemnity (Required)"
                       />
                       <Radio
                         id="personal-accident"
                         value="personal-accident"
                         checked={field.value === "personal-accident"}
                         onChange={(e) => field.onChange(e.target.value)}
-                        label="Personal Accident"
+                        label="Personal Accident (Optional)"
                       />
                     </div>
                   </FormControl>
