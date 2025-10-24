@@ -1,6 +1,7 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import {
   FormField,
   FormItem,
@@ -13,19 +14,35 @@ import {
   typeOfCovers,
   scopeOfCovers,
   gender,
+  benefitPeriods,
+  waitingPeriods,
 } from "./data";
+import { NumericFormat } from "react-number-format";
 
 export function Step3() {
   const form = useFormContext<UnifiedFormData>();
+  const surgeryOrPreExistingConditions = useWatch({
+    control: form.control,
+    name: "surgeryOrPreExistingConditions",
+  });
+  const sportingActivities = useWatch({
+    control: form.control,
+    name: "sportingActivities",
+  });
+  const weeklyCompensationExceedIncome = useWatch({
+    control: form.control,
+    name: "weeklyCompensationExceedIncome",
+  });
+
   return (
     <div>
-      <h1 className="text-3xl font-semibold mb-2 text-white">
+      <h1 className="text-3xl font-semibold mb-12 text-white">
         Enter your professional indemnity details:
       </h1>
 
-      <div className="mt-12">
+      <div className="space-y-6">
         {/* Professional Indemnity */}
-        <div className="mb-12">
+        <div>
           <h2 className="text-xl font-medium mb-8 text-white">
             Professional Indemnity
           </h2>
@@ -55,7 +72,7 @@ export function Step3() {
         </div>
 
         {/* Individual Accident & Sickness */}
-        <div className="mb-12">
+        <div>
           <h2 className="text-xl font-medium mb-8 text-white">
             Individual Accident & Sickness
           </h2>
@@ -170,29 +187,14 @@ export function Step3() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
+                      <NumericFormat
+                        customInput={Input}
                         placeholder="Weekly Sickness Benefit"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        onKeyDown={(e) => {
-                          // Allow: backspace, delete, tab, escape, enter
-                          if (
-                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-                            (e.keyCode === 65 && e.ctrlKey === true) ||
-                            (e.keyCode === 67 && e.ctrlKey === true) ||
-                            (e.keyCode === 86 && e.ctrlKey === true) ||
-                            (e.keyCode === 88 && e.ctrlKey === true)
-                          ) {
-                            return;
-                          }
-                          // Ensure that it is a number and stop the keypress
-                          if (
-                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
-                            (e.keyCode < 96 || e.keyCode > 105)
-                          ) {
-                            e.preventDefault();
-                          }
-                        }}
+                        prefix="$"
+                        thousandSeparator=","
+                        allowNegative={false}
+                        decimalScale={0}
                         {...field}
                       />
                     </FormControl>
@@ -207,29 +209,14 @@ export function Step3() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
+                      <NumericFormat
+                        customInput={Input}
                         placeholder="Weekly Injury Benefit"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        onKeyDown={(e) => {
-                          // Allow: backspace, delete, tab, escape, enter
-                          if (
-                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-                            (e.keyCode === 65 && e.ctrlKey === true) ||
-                            (e.keyCode === 67 && e.ctrlKey === true) ||
-                            (e.keyCode === 86 && e.ctrlKey === true) ||
-                            (e.keyCode === 88 && e.ctrlKey === true)
-                          ) {
-                            return;
-                          }
-                          // Ensure that it is a number and stop the keypress
-                          if (
-                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
-                            (e.keyCode < 96 || e.keyCode > 105)
-                          ) {
-                            e.preventDefault();
-                          }
-                        }}
+                        prefix="$"
+                        thousandSeparator=","
+                        allowNegative={false}
+                        decimalScale={0}
                         {...field}
                       />
                     </FormControl>
@@ -244,29 +231,14 @@ export function Step3() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
+                      <NumericFormat
+                        customInput={Input}
                         placeholder="Lump Sum Benefit"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        onKeyDown={(e) => {
-                          // Allow: backspace, delete, tab, escape, enter
-                          if (
-                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-                            (e.keyCode === 65 && e.ctrlKey === true) ||
-                            (e.keyCode === 67 && e.ctrlKey === true) ||
-                            (e.keyCode === 86 && e.ctrlKey === true) ||
-                            (e.keyCode === 88 && e.ctrlKey === true)
-                          ) {
-                            return;
-                          }
-                          // Ensure that it is a number and stop the keypress
-                          if (
-                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
-                            (e.keyCode < 96 || e.keyCode > 105)
-                          ) {
-                            e.preventDefault();
-                          }
-                        }}
+                        prefix="$"
+                        thousandSeparator=","
+                        allowNegative={false}
+                        decimalScale={0}
                         {...field}
                       />
                     </FormControl>
@@ -286,10 +258,11 @@ export function Step3() {
                     <FormControl>
                       <Select {...field}>
                         <option value="">Benefit Period</option>
-                        <option value="2-years">2 Years</option>
-                        <option value="5-years">5 Years</option>
-                        <option value="to-age-65">To Age 65</option>
-                        <option value="to-age-70">To Age 70</option>
+                        {benefitPeriods.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </Select>
                     </FormControl>
                     <FormMessage />
@@ -305,10 +278,11 @@ export function Step3() {
                     <FormControl>
                       <Select {...field}>
                         <option value="">Waiting Period</option>
-                        <option value="7-days">7 Days</option>
-                        <option value="14-days">14 Days</option>
-                        <option value="30-days">30 Days</option>
-                        <option value="60-days">60 Days</option>
+                        {waitingPeriods.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </Select>
                     </FormControl>
                     <FormMessage />
@@ -316,12 +290,7 @@ export function Step3() {
                 )}
               />
             </div>
-          </div>
-        </div>
 
-        {/* Additional Questions */}
-        <div className="mb-12">
-          <div className="space-y-6">
             {/* Surgery/Pre-existing conditions */}
             <FormField
               control={form.control}
@@ -329,16 +298,39 @@ export function Step3() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Have you had surgery or pre-existing medical conditions requiring treatment or medication? (Yes / No)"
-                      className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                      {...field}
-                    />
+                    <Select {...field}>
+                      <option value="">
+                        Have you had surgery or pre-existing medical conditions
+                        requiring treatment or medication? (Yes / No) 
+                      </option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* Surgery/Pre-existing conditions Details - Show only if Yes is selected */}
+            {surgeryOrPreExistingConditions === "yes" && (
+              <FormField
+                control={form.control}
+                name="surgeryOrPreExistingConditionsDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Provide full details"
+                        className="min-h-[100px] bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 py-4 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Sporting activities */}
             <FormField
@@ -347,16 +339,39 @@ export function Step3() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Do you engage in any amateur or professional sporting activities? (Yes / No)"
-                      className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                      {...field}
-                    />
+                    <Select {...field}>
+                      <option value="">
+                        Do you engage in any amateur or professional sporting
+                        activities? (Yes / No) 
+                      </option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* Sporting activities Details - Show only if Yes is selected */}
+            {sportingActivities === "yes" && (
+              <FormField
+                control={form.control}
+                name="sportingActivitiesDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Provide full details"
+                        className="min-h-[100px] bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 py-4 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Weekly compensation exceed income */}
             <FormField
@@ -365,16 +380,40 @@ export function Step3() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Will the amount of your weekly compensation from this policy and all other sources exceed your weekly salary or income? (Yes / No)"
-                      className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                      {...field}
-                    />
+                    <Select {...field}>
+                      <option value="">
+                        Will the amount of your weekly compensation from this
+                        policy and all other sources exceed your weekly salary
+                        or income? (Yes / No) 
+                      </option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* Weekly compensation exceed income Details - Show only if Yes is selected */}
+            {weeklyCompensationExceedIncome === "yes" && (
+              <FormField
+                control={form.control}
+                name="weeklyCompensationExceedIncomeDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Provide full details"
+                        className="min-h-[100px] bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 py-4 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
         </div>
       </div>

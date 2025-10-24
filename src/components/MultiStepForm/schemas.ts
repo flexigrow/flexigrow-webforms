@@ -50,10 +50,13 @@ export const step3Schema = z.object({
   surgeryOrPreExistingConditions: z
     .string()
     .min(1, "Please answer this question"),
+  surgeryOrPreExistingConditionsDetails: z.string().optional(),
   sportingActivities: z.string().min(1, "Please answer this question"),
+  sportingActivitiesDetails: z.string().optional(),
   weeklyCompensationExceedIncome: z
     .string()
     .min(1, "Please answer this question"),
+  weeklyCompensationExceedIncomeDetails: z.string().optional(),
 });
 
 export const step4Schema = z.object({
