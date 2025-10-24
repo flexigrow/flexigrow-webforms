@@ -9,7 +9,7 @@ export interface RadioProps
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   ({ className, label, ...props }, ref) => {
     return (
-      <label className="flex items-center justify-between h-16 w-full rounded-2xl border-0 bg-[#1a1a1a] px-6 py-2 text-base text-white cursor-pointer hover:bg-[#252525] transition-colors">
+      <label className="flex items-center gap-3 h-16 w-full rounded-2xl border-0 bg-[#1a1a1a] px-6 py-2 text-base text-white cursor-pointer hover:bg-[#252525] transition-colors">
         <span className="text-gray-300">{label}</span>
         <input
           type="radio"

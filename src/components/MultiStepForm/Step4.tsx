@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { Radio } from "@/components/ui/radio";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -11,6 +11,35 @@ import { type UnifiedFormData } from "./schemas";
 
 export function Step4() {
   const form = useFormContext<UnifiedFormData>();
+  const insuranceDeclined = useWatch({
+    control: form.control,
+    name: "insuranceDeclined",
+  });
+  const renewalRefused = useWatch({
+    control: form.control,
+    name: "renewalRefused",
+  });
+  const specialExcessImposed = useWatch({
+    control: form.control,
+    name: "specialExcessImposed",
+  });
+  const claimRejected = useWatch({
+    control: form.control,
+    name: "claimRejected",
+  });
+  const bankruptcy = useWatch({
+    control: form.control,
+    name: "bankruptcy",
+  });
+  const criminalOffence = useWatch({
+    control: form.control,
+    name: "criminalOffence",
+  });
+  const claimsInLast5Years = useWatch({
+    control: form.control,
+    name: "claimsInLast5Years",
+  });
+
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-2 text-white">
@@ -27,13 +56,17 @@ export function Step4() {
           <div className="space-y-6">
             {/* Insurance Declined */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you ever had insurance declined, refused, cancelled or
+                special terms imposed?
+              </p>
               <FormField
                 control={form.control}
                 name="insuranceDeclined"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="insurance-declined-yes"
                           value="yes"
@@ -54,39 +87,40 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you ever had insurance declined, refused, cancelled or
-                special terms imposed?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="insuranceDeclinedDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {insuranceDeclined === "yes" && (
+              <FormField
+                control={form.control}
+                name="insuranceDeclinedDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Renewal Refused */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you ever had renewal refused or special terms imposed?
+              </p>
               <FormField
                 control={form.control}
                 name="renewalRefused"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="renewal-refused-yes"
                           value="yes"
@@ -107,38 +141,40 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you ever had renewal refused or special terms imposed?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="renewalRefusedDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {renewalRefused === "yes" && (
+              <FormField
+                control={form.control}
+                name="renewalRefusedDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Special Excess Imposed */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you ever had special excess imposed?
+              </p>
               <FormField
                 control={form.control}
                 name="specialExcessImposed"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="special-excess-yes"
                           value="yes"
@@ -159,38 +195,40 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you ever had special excess imposed?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="specialExcessImposedDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {specialExcessImposed === "yes" && (
+              <FormField
+                control={form.control}
+                name="specialExcessImposedDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Claim Rejected */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you ever had a claim rejected?
+              </p>
               <FormField
                 control={form.control}
                 name="claimRejected"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="claim-rejected-yes"
                           value="yes"
@@ -211,38 +249,41 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you ever had a claim rejected?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="claimRejectedDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {claimRejected === "yes" && (
+              <FormField
+                control={form.control}
+                name="claimRejectedDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Bankruptcy */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you ever been declared bankrupt or entered into any
+                arrangement with creditors?
+              </p>
               <FormField
                 control={form.control}
                 name="bankruptcy"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="bankruptcy-yes"
                           value="yes"
@@ -263,39 +304,41 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you ever been declared bankrupt or entered into any
-                arrangement with creditors?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="bankruptcyDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {bankruptcy === "yes" && (
+              <FormField
+                control={form.control}
+                name="bankruptcyDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Criminal Offence */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you ever been charged with or convicted of any criminal
+                offence?
+              </p>
               <FormField
                 control={form.control}
                 name="criminalOffence"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="criminal-offence-yes"
                           value="yes"
@@ -316,29 +359,27 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you ever been charged with or convicted of any criminal
-                offence?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="criminalOffenceDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {criminalOffence === "yes" && (
+              <FormField
+                control={form.control}
+                name="criminalOffenceDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
         </div>
 
@@ -351,13 +392,16 @@ export function Step4() {
           <div className="space-y-6">
             {/* Claims in Last 5 Years */}
             <div>
+              <p className="text-sm text-gray-400 mb-4">
+                Have you had any claims in the last 5 years?
+              </p>
               <FormField
                 control={form.control}
                 name="claimsInLast5Years"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="space-y-4">
+                      <div className="flex gap-6 w-fit">
                         <Radio
                           id="claims-last-5-years-yes"
                           value="yes"
@@ -378,28 +422,27 @@ export function Step4() {
                   </FormItem>
                 )}
               />
-              <p className="text-sm text-gray-400 mt-2">
-                Have you had any claims in the last 5 years?
-              </p>
             </div>
 
             {/* If Yes, provide details */}
-            <FormField
-              control={form.control}
-              name="claimsInLast5YearsDetails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder="If Yes, provide details"
-                      className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {claimsInLast5Years === "yes" && (
+              <FormField
+                control={form.control}
+                name="claimsInLast5YearsDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="If Yes, provide details"
+                        className="h-24 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
         </div>
 
