@@ -10,7 +10,7 @@ export function Step5({
   email = "your email",
 }: Step5Props) {
   return (
-    <div className="text-center py-20">
+    <div className="py-20">
       {/* Welcome Header */}
       <div className="mb-16">
         <h1 className="text-4xl font-bold text-white mb-4">
@@ -23,7 +23,7 @@ export function Step5({
       </div>
 
       {/* Next Steps Section */}
-      <div className="max-w-2xl mx-auto">
+      <div>
         <h2 className="text-3xl font-bold text-white mb-12">Next steps</h2>
 
         <div className="space-y-8 text-left">

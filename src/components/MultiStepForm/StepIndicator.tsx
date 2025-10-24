@@ -21,8 +21,8 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
             {/* Step Circle and Label */}
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
-                  step.id === currentStep
+                className={`w-5 h-5 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+                  step.id <= currentStep
                     ? "bg-primary text-black"
                     : step.id === currentStep + 1
                     ? "bg-[#919493] text-black"
@@ -51,9 +51,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
             {/* Connector Line */}
             {index < steps.length - 1 && (
               <div
-                className={`h-[1px] flex-1 mx-4 transition-colors ${
-                  step.id < currentStep ? "bg-primary" : "bg-[#3F4040]"
-                }`}
+                className={`h-[1px] flex-1 mx-4 transition-colors bg-primary`}
               />
             )}
           </div>

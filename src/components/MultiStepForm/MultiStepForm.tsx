@@ -34,7 +34,7 @@ const sideContentItems = [
 ];
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.GENERAL_LIABILITY);
+  const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
