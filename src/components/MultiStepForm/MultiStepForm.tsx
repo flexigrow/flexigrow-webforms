@@ -8,6 +8,7 @@ import { Step2 } from "./Step2";
 import { Step3 } from "./Step3";
 import { Step4 } from "./Step4";
 import { Step5 } from "./Step5";
+import { StepIndicator } from "./StepIndicator";
 import {
   Step,
   unifiedSchema,
@@ -16,14 +17,6 @@ import {
 } from "./schemas";
 import { SideContent } from "./SideContent";
 import gearIconUrl from "./images/icons/gear.svg";
-
-const steps = [
-  { id: Step.YOUR_DETAILS, title: "Your Details" },
-  { id: Step.GENERAL_LIABILITY, title: "General Liability" },
-  { id: Step.PROFESSIONAL_INDEMNITY, title: "Professional Indemnity" },
-  { id: Step.DISCLOSURE_CLAIMS, title: "Disclosure & Claims" },
-  { id: Step.CONFIRMATION, title: "Confirmation" },
-];
 
 const sideContentItems = [
   {
@@ -41,7 +34,7 @@ const sideContentItems = [
 ];
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
+  const [currentStep, setCurrentStep] = useState(Step.GENERAL_LIABILITY);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -115,54 +108,7 @@ export function MultiStepForm() {
     <div className="bg-[#080808] text-white p-6 sm:p-12">
       <div className="mx-auto">
         {/* Step Indicator */}
-        <div className="mb-16">
-          <div className="flex items-start justify-between">
-            {steps.map((step, index) => (
-              <div key={step.id} className="flex items-center flex-1">
-                {/* Step Circle and Label */}
-                <div className="flex flex-col items-center gap-3">
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
-                      step.id < currentStep
-                        ? "bg-gray-600 text-white"
-                        : step.id === currentStep
-                        ? "bg-gray-600 text-white"
-                        : "bg-gray-800 text-gray-500"
-                    }`}
-                  >
-                    {step.id < currentStep ? (
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={3}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    ) : null}
-                  </div>
-                  <span className="text-xs font-normal text-white whitespace-nowrap">
-                    {step.title}
-                  </span>
-                </div>
-
-                {/* Connector Line */}
-                {index < steps.length - 1 && (
-                  <div
-                    className={`h-[1px] flex-1 mx-3 transition-colors ${
-                      step.id < currentStep ? "bg-primary" : "bg-gray-800"
-                    }`}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
+        <StepIndicator currentStep={currentStep} />
 
         <div className="grid grid-cols-12 gap-24">
           <div className="col-span-8 content-center">
