@@ -8,6 +8,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
+import {
+  limitOfIndemnities,
+  typeOfCovers,
+  scopeOfCovers,
+  gender,
+} from "./data";
 
 export function Step3() {
   const form = useFormContext<UnifiedFormData>();
@@ -34,10 +40,11 @@ export function Step3() {
                   <FormControl>
                     <Select {...field}>
                       <option value="">Limit of Indemnity</option>
-                      <option value="1000000">$1,000,000</option>
-                      <option value="2000000">$2,000,000</option>
-                      <option value="5000000">$5,000,000</option>
-                      <option value="10000000">$10,000,000</option>
+                      {limitOfIndemnities.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
                     </Select>
                   </FormControl>
                   <FormMessage />
@@ -64,9 +71,11 @@ export function Step3() {
                     <FormControl>
                       <Select {...field}>
                         <option value="">Type of Cover</option>
-                        <option value="comprehensive">Comprehensive</option>
-                        <option value="accident-only">Accident Only</option>
-                        <option value="sickness-only">Sickness Only</option>
+                        {typeOfCovers.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </Select>
                     </FormControl>
                     <FormMessage />
@@ -82,11 +91,11 @@ export function Step3() {
                     <FormControl>
                       <Select {...field}>
                         <option value="">Scope of Cover</option>
-                        <option value="worldwide">Worldwide</option>
-                        <option value="australia-only">Australia Only</option>
-                        <option value="specific-countries">
-                          Specific Countries
-                        </option>
+                        {scopeOfCovers.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </Select>
                     </FormControl>
                     <FormMessage />
@@ -102,9 +111,11 @@ export function Step3() {
                     <FormControl>
                       <Select {...field}>
                         <option value="">Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        {gender.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </Select>
                     </FormControl>
                     <FormMessage />
@@ -162,6 +173,26 @@ export function Step3() {
                       <Input
                         placeholder="Weekly Sickness Benefit"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
+                        onKeyDown={(e) => {
+                          // Allow: backspace, delete, tab, escape, enter
+                          if (
+                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
+                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                            (e.keyCode === 65 && e.ctrlKey === true) ||
+                            (e.keyCode === 67 && e.ctrlKey === true) ||
+                            (e.keyCode === 86 && e.ctrlKey === true) ||
+                            (e.keyCode === 88 && e.ctrlKey === true)
+                          ) {
+                            return;
+                          }
+                          // Ensure that it is a number and stop the keypress
+                          if (
+                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
+                            (e.keyCode < 96 || e.keyCode > 105)
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
                         {...field}
                       />
                     </FormControl>
@@ -179,6 +210,26 @@ export function Step3() {
                       <Input
                         placeholder="Weekly Injury Benefit"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
+                        onKeyDown={(e) => {
+                          // Allow: backspace, delete, tab, escape, enter
+                          if (
+                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
+                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                            (e.keyCode === 65 && e.ctrlKey === true) ||
+                            (e.keyCode === 67 && e.ctrlKey === true) ||
+                            (e.keyCode === 86 && e.ctrlKey === true) ||
+                            (e.keyCode === 88 && e.ctrlKey === true)
+                          ) {
+                            return;
+                          }
+                          // Ensure that it is a number and stop the keypress
+                          if (
+                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
+                            (e.keyCode < 96 || e.keyCode > 105)
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
                         {...field}
                       />
                     </FormControl>
@@ -196,6 +247,26 @@ export function Step3() {
                       <Input
                         placeholder="Lump Sum Benefit"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
+                        onKeyDown={(e) => {
+                          // Allow: backspace, delete, tab, escape, enter
+                          if (
+                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
+                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                            (e.keyCode === 65 && e.ctrlKey === true) ||
+                            (e.keyCode === 67 && e.ctrlKey === true) ||
+                            (e.keyCode === 86 && e.ctrlKey === true) ||
+                            (e.keyCode === 88 && e.ctrlKey === true)
+                          ) {
+                            return;
+                          }
+                          // Ensure that it is a number and stop the keypress
+                          if (
+                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
+                            (e.keyCode < 96 || e.keyCode > 105)
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
                         {...field}
                       />
                     </FormControl>

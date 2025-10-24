@@ -27,13 +27,12 @@ export const step2Schema = z.object({
   productSelection: z.enum(["public-liability", "personal-accident"]),
   activities: z.array(z.string()).min(1, "Please select at least one activity"),
   prescribeDrugs: z.string().min(1, "Please answer this question"),
+  prescribeDrugsDetails: z.string().optional(),
   medicalTreatments: z.string().min(1, "Please answer this question"),
+  medicalTreatmentsDetails: z.string().optional(),
   limitOfLiability: z.string().min(1, "Please select limit of liability"),
   employPeople: z.string().min(1, "Please answer this question"),
   numberOfEmployees: z.string().optional(),
-  numberOfContractors: z.string().optional(),
-  totalWages: z.string().optional(),
-  contractorsInsurance: z.string().optional(),
 });
 
 export const step3Schema = z.object({

@@ -1,8 +1,9 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Radio } from "@/components/ui/radio";
 import { MultiSelect } from "@/components/ui/multi-select";
+import { Textarea } from "@/components/ui/textarea";
 import {
   FormField,
   FormItem,
@@ -14,6 +15,15 @@ import { generalLiabilityActivities } from "./data";
 
 export function Step2() {
   const form = useFormContext<UnifiedFormData>();
+  const prescribeDrugs = useWatch({
+    control: form.control,
+    name: "prescribeDrugs",
+  });
+  const medicalTreatments = useWatch({
+    control: form.control,
+    name: "medicalTreatments",
+  });
+
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-2 text-white">
@@ -84,56 +94,20 @@ export function Step2() {
               )}
             />
 
-            {/* Row 1: Prescribe Drugs, Medical Treatments */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="prescribeDrugs"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Do you prescribe drugs? (Yes / No)"
-                        className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="medicalTreatments"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Do you provide medical treatments? (Yes / No)"
-                        className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* Limit of Liability */}
+            {/* Prescribe Drugs */}
             <FormField
               control={form.control}
-              name="limitOfLiability"
+              name="prescribeDrugs"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Select {...field}>
-                      <option value="">Limit of Liability</option>
-                      <option value="1000000">$1,000,000</option>
-                      <option value="2000000">$2,000,000</option>
-                      <option value="5000000">$5,000,000</option>
-                      <option value="10000000">$10,000,000</option>
+                      <option value="">
+                        Do you dispense or prescribe prescription drugs to their
+                        clients? (Yes / No)
+                      </option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
                     </Select>
                   </FormControl>
                   <FormMessage />
@@ -141,26 +115,108 @@ export function Step2() {
               )}
             />
 
-            {/* Employ People */}
+            {/* Prescribe Drugs Details - Show only if Yes is selected */}
+            {prescribeDrugs === "yes" && (
+              <FormField
+                control={form.control}
+                name="prescribeDrugsDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Provide full details"
+                        className="min-h-[100px] bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 py-4 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            {/* Medical Treatments */}
             <FormField
               control={form.control}
-              name="employPeople"
+              name="medicalTreatments"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Do you employ people? (Yes / No)"
-                      className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                      {...field}
-                    />
+                    <Select {...field}>
+                      <option value="">
+                        Does the Insured Person perform any medical treatments
+                        or procedures that are required to be undertaken by a
+                        qualified medical practitioner?
+                      </option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Row 2: Number of Employees, Number of Contractors, Total Wages */}
+            {/* Medical Treatments Details - Show only if Yes is selected */}
+            {medicalTreatments === "yes" && (
+              <FormField
+                control={form.control}
+                name="medicalTreatmentsDetails"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Provide full details"
+                        className="min-h-[100px] bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 py-4 text-base resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            {/* Row: Limit of Liability, Employ People, Number of Employees */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <FormField
+                control={form.control}
+                name="limitOfLiability"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Select {...field}>
+                        <option value="">Limit of Liability</option>
+                        <option value="1000000">$1,000,000</option>
+                        <option value="2000000">$2,000,000</option>
+                        <option value="5000000">$5,000,000</option>
+                        <option value="10000000">$10,000,000</option>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="employPeople"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Select {...field}>
+                        <option value="">
+                          Do you employ people? (Yes / No)
+                        </option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="numberOfEmployees"
@@ -168,42 +224,28 @@ export function Step2() {
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Number of Employees"
+                        placeholder="Number of Employees? (Full & Part Time)"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="numberOfContractors"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Number of Contractors"
-                        className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="totalWages"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Total Wages"
-                        className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
+                        onKeyDown={(e) => {
+                          // Allow: backspace, delete, tab, escape, enter
+                          if (
+                            [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
+                            // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                            (e.keyCode === 65 && e.ctrlKey === true) ||
+                            (e.keyCode === 67 && e.ctrlKey === true) ||
+                            (e.keyCode === 86 && e.ctrlKey === true) ||
+                            (e.keyCode === 88 && e.ctrlKey === true)
+                          ) {
+                            return;
+                          }
+                          // Ensure that it is a number and stop the keypress
+                          if (
+                            (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
+                            (e.keyCode < 96 || e.keyCode > 105)
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
                         {...field}
                       />
                     </FormControl>
@@ -212,24 +254,6 @@ export function Step2() {
                 )}
               />
             </div>
-
-            {/* Contractors Insurance */}
-            <FormField
-              control={form.control}
-              name="contractorsInsurance"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Do your contractors have their own insurance? (Yes / No)"
-                      className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
         </div>
       </div>
