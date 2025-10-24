@@ -2,6 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Radio } from "@/components/ui/radio";
+import { MultiSelect } from "@/components/ui/multi-select";
 import {
   FormField,
   FormItem,
@@ -9,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
+import { generalLiabilityActivities } from "./data";
 
 export function Step2() {
   const form = useFormContext<UnifiedFormData>();
@@ -32,7 +34,7 @@ export function Step2() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <Radio
                         id="public-liability"
                         value="public-liability"
@@ -70,10 +72,11 @@ export function Step2() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="What activities does your business undertake?"
-                      className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                      {...field}
+                    <MultiSelect
+                      options={generalLiabilityActivities}
+                      value={field.value || []}
+                      onChange={field.onChange}
+                      placeholder="Activities (Select all that are relevant)"
                     />
                   </FormControl>
                   <FormMessage />

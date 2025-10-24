@@ -25,7 +25,7 @@ export const step1Schema = z.object({
 
 export const step2Schema = z.object({
   productSelection: z.enum(["public-liability", "personal-accident"]),
-  activities: z.string().min(1, "Please select at least one activity"),
+  activities: z.array(z.string()).min(1, "Please select at least one activity"),
   prescribeDrugs: z.string().min(1, "Please answer this question"),
   medicalTreatments: z.string().min(1, "Please answer this question"),
   limitOfLiability: z.string().min(1, "Please select limit of liability"),
