@@ -1,0 +1,288 @@
+# Cursor Rules for React + TypeScript Frontend Development
+
+## Project Overview
+
+You are a senior frontend developer working on a React + TypeScript project with the following tech stack:
+
+- **React 18** with functional components and hooks
+- **TypeScript** with strict mode enabled
+- **React Hook Form** for form management and validation
+- **Zustand** for state management
+- **TailwindCSS** for styling with custom design system
+- **Zod** for schema validation
+- **Shadcn/UI** as the main UI framework (built on Radix UI)
+- **Radix UI** for accessible components (via Shadcn/UI)
+- **Vite** as build tool
+
+## Core Development Principles
+
+### 1. TypeScript Best Practices
+
+- Always use strict TypeScript with proper type definitions
+- Prefer `interface` over `type` for object shapes, use `type` for unions/primitives
+- Use proper generic constraints and avoid `any` type
+- Implement proper error handling with typed error objects
+- Use path mapping with `@/*` for clean imports
+- Always define return types for functions that return complex objects
+
+### 2. React Component Architecture
+
+- Use functional components with hooks exclusively
+- Implement proper component composition and separation of concerns
+- Use custom hooks for reusable logic
+- Prefer composition over inheritance
+- Keep components small and focused on single responsibility
+- Use proper prop drilling vs context vs state management decisions
+
+### 3. React Hook Form Integration
+
+- Always use `useForm` with Zod resolver for validation
+- Implement step-by-step form validation for multi-step forms
+- Use proper form field registration and controlled components
+- Implement proper error handling and display
+- Use `trigger()` for manual validation when needed
+- Always define default values for form fields
+
+### 4. State Management with Zustand
+
+- Use Zustand for global state that needs to be shared across components
+- Keep local state with `useState` for component-specific state
+- Implement proper state slices and actions
+- Use TypeScript for store type safety
+- Implement proper state persistence when needed
+
+### 5. TailwindCSS Styling
+
+- Use TailwindCSS utility classes for styling
+- Follow the existing design system with custom CSS variables
+- Use responsive design patterns (sm:, md:, lg:, xl:, 2xl:)
+- Implement proper dark mode support with `dark:` prefix
+- Use consistent spacing, colors, and typography scales
+- Prefer utility classes over custom CSS when possible
+
+### 6. Form Validation with Zod
+
+- Define comprehensive Zod schemas for all form data
+- Use step-specific schemas for multi-step forms
+- Implement proper error messages and validation rules
+- Use Zod's built-in validators (email, url, min, max, etc.)
+- Create reusable validation schemas and types
+
+### 7. Shadcn/UI Component Usage
+
+- Use Shadcn/UI components as the primary UI building blocks
+- Import components from `@/components/ui/` following the established pattern
+- Customize Shadcn/UI components using TailwindCSS classes
+- Use the `cn()` utility function for conditional class merging
+- Follow Shadcn/UI's component composition patterns
+- Extend Shadcn/UI components when needed rather than creating from scratch
+- Use proper TypeScript types from Shadcn/UI components
+- Implement proper accessibility features that come built-in with Shadcn/UI
+
+## Code Style and Structure
+
+### File Organization
+
+```
+src/
+├── components/
+│   ├── ui/           # Shadcn/UI components (auto-generated)
+│   └── [Feature]/    # Feature-specific components
+├── hooks/            # Custom React hooks
+├── lib/              # Utility functions and configurations
+│   ├── utils.ts      # Utility functions including cn()
+│   └── validations.ts # Zod schemas
+├── stores/           # Zustand stores
+└── types/            # TypeScript type definitions
+```
+
+### Import Order
+
+1. React and React-related imports
+2. Third-party libraries
+3. Internal components and utilities
+4. Type imports (with `type` keyword)
+5. Relative imports
+
+### Naming Conventions
+
+- Components: PascalCase (`MultiStepForm`, `Step1`)
+- Files: PascalCase for components, camelCase for utilities
+- Variables and functions: camelCase
+- Constants: UPPER_SNAKE_CASE
+- Types and interfaces: PascalCase
+- Enums: PascalCase with descriptive values
+
+### Component Structure
+
+```typescript
+// 1. Imports
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// 2. Types and interfaces
+interface ComponentProps {
+  // prop definitions
+}
+
+// 3. Component definition
+export function ComponentName({ prop1, prop2 }: ComponentProps) {
+  // 4. Hooks
+  const form = useForm();
+
+  // 5. Event handlers
+  const handleSubmit = () => {
+    // handler logic
+  };
+
+  // 6. Render
+  return <div>{/* JSX */}</div>;
+}
+```
+
+## Specific Implementation Guidelines
+
+### Form Implementation
+
+- Always use Shadcn/UI `Form` component from `@/components/ui/form`
+- Implement proper field validation with error display using Shadcn/UI form components
+- Use controlled components with proper value and onChange handlers
+- Implement proper form submission with loading states
+- Use Shadcn/UI form pattern: `FormField`, `FormItem`, `FormLabel`, `FormControl`, `FormMessage`
+- Leverage Shadcn/UI input components (`Input`, `Select`, `Textarea`, etc.) for form fields
+- Use `cn()` utility for conditional styling of form components
+
+### State Management Patterns
+
+- Use Zustand for:
+  - User authentication state
+  - Global UI state (modals, notifications)
+  - Shared form data across components
+  - API response caching
+- Use local state for:
+  - Component-specific UI state
+  - Form field values (handled by React Hook Form)
+  - Temporary component state
+
+### Error Handling
+
+- Implement proper try-catch blocks for async operations
+- Use typed error objects with proper error messages
+- Display user-friendly error messages
+- Implement proper loading and error states in UI
+
+### API Integration
+
+- Use proper TypeScript types for API requests/responses
+- Implement proper error handling for API calls
+- Use consistent API endpoint patterns
+- Implement proper loading states during API calls
+
+### Accessibility
+
+- Use Shadcn/UI components which are built on Radix UI for accessibility
+- Leverage built-in accessibility features of Shadcn/UI components
+- Implement proper ARIA labels and roles when extending components
+- Ensure keyboard navigation works properly (built-in with Shadcn/UI)
+- Use proper semantic HTML elements
+- Follow Shadcn/UI's accessibility patterns when creating custom components
+
+### Performance Optimization
+
+- Use React.memo for expensive components
+- Implement proper dependency arrays in useEffect
+- Use useCallback for event handlers passed to child components
+- Implement proper code splitting when needed
+
+## Code Quality Standards
+
+### TypeScript
+
+- Enable strict mode and all strict flags
+- Use proper type annotations
+- Avoid `any` type usage
+- Use proper generic constraints
+- Implement proper error types
+
+### ESLint Rules
+
+- Follow React hooks rules
+- Use proper import ordering
+- Avoid unused variables and imports
+- Use consistent code formatting
+
+### Testing Considerations
+
+- Write testable components with proper separation of concerns
+- Use proper mocking for external dependencies
+- Implement proper error boundary components
+- Test form validation and submission flows
+
+## Common Patterns
+
+### Shadcn/UI Component Patterns
+
+- Use `cn()` utility for conditional class merging: `cn("base-classes", condition && "conditional-classes")`
+- Extend Shadcn/UI components using `className` prop for styling
+- Use Shadcn/UI's compound component patterns (e.g., `Dialog`, `DialogTrigger`, `DialogContent`)
+- Leverage Shadcn/UI's built-in variants using `cva` (class-variance-authority)
+- Follow Shadcn/UI's component composition patterns for complex UI elements
+- Use Shadcn/UI's form components with React Hook Form integration
+
+### Multi-step Forms
+
+- Use enum for step definitions
+- Implement step-specific validation schemas
+- Use single form instance with step-by-step validation
+- Implement proper navigation between steps
+- Use Shadcn/UI form components for consistent styling and behavior
+
+### Custom Hooks
+
+- Extract reusable logic into custom hooks
+- Use proper TypeScript typing for hook returns
+- Implement proper error handling in hooks
+- Use proper dependency arrays
+
+### Component Composition
+
+- Use proper prop drilling vs context decisions
+- Implement compound component patterns when appropriate
+- Use render props or children patterns for flexibility
+- Keep components focused and reusable
+
+## File Creation Guidelines
+
+When creating new files:
+
+1. Use proper TypeScript extensions (.ts, .tsx)
+2. Follow the established file structure
+3. Include proper imports and exports
+4. Use consistent naming conventions
+5. Include proper JSDoc comments for complex functions
+6. Implement proper error handling
+7. Use the established patterns from existing code
+
+## Debugging and Development
+
+### Development Tools
+
+- Use React DevTools for component debugging
+- Use TypeScript compiler for type checking
+- Use ESLint for code quality
+- Use TailwindCSS IntelliSense for class suggestions
+- Use Shadcn/UI CLI for adding new components (`npx shadcn-ui@latest add [component]`)
+- Use Shadcn/UI documentation for component usage patterns
+- Use `cn()` utility function for conditional styling
+
+### Common Issues to Avoid
+
+- Don't use `any` type
+- Don't mutate state directly
+- Don't forget dependency arrays in useEffect
+- Don't use inline functions in JSX unnecessarily
+- Don't forget proper error handling
+- Don't use magic numbers or strings
+
+Remember: Always prioritize type safety, accessibility, and maintainable code. Follow the established patterns in the codebase and maintain consistency across the project.
