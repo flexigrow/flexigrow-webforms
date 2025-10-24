@@ -49,16 +49,16 @@ export function Step4() {
       <div className="mt-12">
         {/* Your disclosure details */}
         <div className="mb-12">
-          <h2 className="text-xl font-medium mb-8 text-white">
+          <h2 className="text-lg font-medium mb-8 text-white">
             Your disclosure details
           </h2>
 
           <div className="space-y-6">
             {/* Insurance Declined */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you ever had insurance declined, refused, cancelled or
-                special terms imposed?
+              <p className="text-sm text-white mb-4">
+                Has the Insured ever had insurance declined or special terms
+                imposed in the last 5 years?
               </p>
               <FormField
                 control={form.control}
@@ -111,8 +111,8 @@ export function Step4() {
 
             {/* Renewal Refused */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you ever had renewal refused or special terms imposed?
+              <p className="text-sm text-white mb-4">
+                Had an insurer refuse or not invite renewal?
               </p>
               <FormField
                 control={form.control}
@@ -165,8 +165,8 @@ export function Step4() {
 
             {/* Special Excess Imposed */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you ever had special excess imposed?
+              <p className="text-sm text-white mb-4">
+                Had a special excess imposed on a policy?
               </p>
               <FormField
                 control={form.control}
@@ -219,8 +219,8 @@ export function Step4() {
 
             {/* Claim Rejected */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you ever had a claim rejected?
+              <p className="text-sm text-white mb-4">
+                Had a claim rejected under a policy?
               </p>
               <FormField
                 control={form.control}
@@ -273,9 +273,8 @@ export function Step4() {
 
             {/* Bankruptcy */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you ever been declared bankrupt or entered into any
-                arrangement with creditors?
+              <p className="text-sm text-white mb-4">
+                Been declared bankrupt or put into receivership/liquidation?
               </p>
               <FormField
                 control={form.control}
@@ -328,9 +327,8 @@ export function Step4() {
 
             {/* Criminal Offence */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you ever been charged with or convicted of any criminal
-                offence?
+              <p className="text-sm text-white mb-4">
+                Been charged with or convicted of a criminal offence?
               </p>
               <FormField
                 control={form.control}
@@ -385,15 +383,16 @@ export function Step4() {
 
         {/* Your claims details */}
         <div className="mb-12">
-          <h2 className="text-xl font-medium mb-8 text-white">
+          <h2 className="text-lg font-medium mb-8 text-white">
             Your claims details
           </h2>
 
           <div className="space-y-6">
             {/* Claims in Last 5 Years */}
             <div>
-              <p className="text-sm text-gray-400 mb-4">
-                Have you had any claims in the last 5 years?
+              <p className="text-sm text-white mb-4">
+                Have you or anyone to be insured under this policy had any
+                claims in the last 5 years for any of the insured risks?
               </p>
               <FormField
                 control={form.control}
@@ -466,8 +465,10 @@ export function Step4() {
                       htmlFor="confirmation"
                       className="text-sm text-white cursor-pointer"
                     >
-                      I confirm that the information provided is accurate and
-                      complete
+                      I confirm that I am submitting this application for
+                      myself, and that all information provided is true,
+                      accurate, and complete to the best of my knowledge and
+                      belief.
                     </label>
                   </div>
                 </FormControl>
