@@ -14,6 +14,8 @@ import {
   stepSchemas,
   type UnifiedFormData,
 } from "./schemas";
+import { SideContent } from "./SideContent";
+import gearIconUrl from "./images/icons/gear.svg";
 
 const steps = [
   { id: Step.YOUR_DETAILS, title: "Your Details" },
@@ -23,8 +25,23 @@ const steps = [
   { id: Step.CONFIRMATION, title: "Confirmation" },
 ];
 
+const sideContentItems = [
+  {
+    icon: gearIconUrl,
+    heading: "Simplify your financial workflow",
+    subheading:
+      "Automate invoicing and payment reminders to get paid faster with less effort.",
+  },
+  {
+    icon: gearIconUrl,
+    heading: "Cut down on paper clutter",
+    subheading:
+      "Easily scan and upload receipts for smarter, hassle-free expense tracking.",
+  },
+];
+
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.DISCLOSURE_CLAIMS);
+  const [currentStep, setCurrentStep] = useState(Step.GENERAL_LIABILITY);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -95,8 +112,8 @@ export function MultiStepForm() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 sm:p-12">
-      <div className="max-w-6xl mx-auto bg-black">
+    <div className="text-white p-6 sm:p-12">
+      <div className="mx-auto">
         {/* Step Indicator */}
         <div className="mb-16">
           <div className="flex items-start justify-between">
@@ -147,27 +164,37 @@ export function MultiStepForm() {
           </div>
         </div>
 
-        <Form {...form}>
-          {/* Step 1: Your Details */}
-          {currentStep === Step.YOUR_DETAILS && <Step1 />}
+        <div className="grid grid-cols-12 gap-24">
+          <div className="col-span-8 content-center">
+            <Form {...form}>
+              {/* Step 1: Your Details */}
+              {currentStep === Step.YOUR_DETAILS && <Step1 />}
 
-          {/* Step 2: General Liability */}
-          {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
+              {/* Step 2: General Liability */}
+              {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
 
-          {/* Step 3: Professional Indemnity */}
-          {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
+              {/* Step 3: Professional Indemnity */}
+              {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
 
-          {/* Step 4: Disclosure and Claims Details */}
-          {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
+              {/* Step 4: Disclosure and Claims Details */}
+              {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
 
-          {/* Step 5: Welcome/Success Page */}
-          {currentStep === Step.CONFIRMATION && (
-            <Step5
-              firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
-              email={form.getValues("email") || "your email"}
-            />
-          )}
-        </Form>
+              {/* Step 5: Welcome/Success Page */}
+              {currentStep === Step.CONFIRMATION && (
+                <Step5
+                  firstName={
+                    form.getValues("yourName")?.split(" ")[0] || "there"
+                  }
+                  email={form.getValues("email") || "your email"}
+                />
+              )}
+            </Form>
+          </div>
+
+          <div className="col-span-4 content-center">
+            <SideContent items={sideContentItems} />
+          </div>
+        </div>
 
         {/* Global Navigation Buttons */}
         {currentStep < Step.CONFIRMATION && (
