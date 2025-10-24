@@ -191,7 +191,7 @@ export function MultiStepForm() {
               {currentStep > Step.YOUR_DETAILS && (
                 <Button
                   onClick={handlePrevious}
-                  className="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-4 text-base rounded-full transition-colors"
+                  className="bg-black hover:border-white border-solid border border-white text-white font-semibold px-20 py-6 text-base rounded-full transition-colors"
                   size="lg"
                 >
                   Previous
