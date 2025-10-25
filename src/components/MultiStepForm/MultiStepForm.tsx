@@ -1,40 +1,22 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
 import { Step3 } from "./Step3";
 import { Step4 } from "./Step4";
 import { Step5 } from "./Step5";
-import { StepIndicator } from "./StepIndicator";
+import { MultiStepNavigation } from "./MultiStepNavigation";
 import {
   Step,
   unifiedSchema,
   stepSchemas,
   type UnifiedFormData,
 } from "./schemas";
-import { SideContent } from "./SideContent";
-import gearIconUrl from "./images/icons/gear.svg";
-
-const sideContentItems = [
-  {
-    icon: gearIconUrl,
-    heading: "Simplify your financial workflow",
-    subheading:
-      "Automate invoicing and payment reminders to get paid faster with less effort.",
-  },
-  {
-    icon: gearIconUrl,
-    heading: "Cut down on paper clutter",
-    subheading:
-      "Easily scan and upload receipts for smarter, hassle-free expense tracking.",
-  },
-];
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.DISCLOSURE_CLAIMS);
+  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -108,76 +90,42 @@ export function MultiStepForm() {
     <div className="bg-[#080808] text-white p-6 sm:p-12">
       <div className="mx-auto">
         {/* Step Indicator */}
-        <StepIndicator currentStep={currentStep} />
+        {/* <StepIndicator currentStep={currentStep} /> */}
 
-        <div className="grid grid-cols-12 gap-24">
-          <div className="col-span-8 content-center space-y-12">
-            <Form {...form}>
-              {/* Step 1: Your Details */}
-              {currentStep === Step.YOUR_DETAILS && <Step1 />}
+        <div className="space-y-12">
+          <Form {...form}>
+            {/* Step 1: Your Details */}
+            {currentStep === Step.YOUR_DETAILS && <Step1 />}
 
-              {/* Step 2: General Liability */}
-              {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
+            {/* Step 2: General Liability */}
+            {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
 
-              {/* Step 3: Professional Indemnity */}
-              {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
+            {/* Step 3: Professional Indemnity */}
+            {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
 
-              {/* Step 4: Disclosure and Claims Details */}
-              {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
+            {/* Step 4: Disclosure and Claims Details */}
+            {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
 
-              {/* Step 5: Welcome/Success Page */}
-              {currentStep === Step.CONFIRMATION && (
-                <Step5
-                  firstName={
-                    form.getValues("yourName")?.split(" ")[0] || "there"
-                  }
-                  email={form.getValues("email") || "your email"}
-                />
-              )}
-            </Form>
-
-            {/* Global Navigation Buttons */}
-            {currentStep < Step.CONFIRMATION && (
-              <div className="flex items-center justify-between">
-                <div className="flex gap-6 text-sm">
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Terms of Service
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Privacy Policy
-                  </a>
-                </div>
-
-                <div className="flex gap-4">
-                  {currentStep > Step.YOUR_DETAILS && (
-                    <Button
-                      onClick={handlePrevious}
-                      className="bg-black hover:border-white border-solid border border-white text-white font-semibold px-20 py-6 text-base rounded-full transition-colors"
-                      size="lg"
-                    >
-                      Previous
-                    </Button>
-                  )}
-                  <Button
-                    onClick={handleNext}
-                    className="bg-primary hover:bg-primary-hover text-black font-semibold px-20 py-6 text-base rounded-full transition-colors"
-                    size="lg"
-                  >
-                    Next
-                  </Button>
-                </div>
-              </div>
+            {/* Step 5: Welcome/Success Page */}
+            {currentStep === Step.CONFIRMATION && (
+              <Step5
+                firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
+                email={form.getValues("email") || "your email"}
+              />
             )}
-          </div>
+          </Form>
 
-          <div className="col-span-4 content-center">
-            <SideContent items={sideContentItems} />
+          <div className="grid grid-cols-12 gap-12 xl:gap-24">
+            <div className="col-span-12 md:col-span-8">
+              {/* Global Navigation */}
+              <MultiStepNavigation
+                currentStep={currentStep}
+                isFirstStep={currentStep === Step.YOUR_DETAILS}
+                isLastStep={currentStep === Step.CONFIRMATION}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+              />
+            </div>
           </div>
         </div>
       </div>

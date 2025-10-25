@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { StepHeading } from "./StepHeading";
 
 interface Step5Props {
   firstName?: string;
@@ -13,10 +14,10 @@ export function Step5({
     <div className="py-20">
       {/* Welcome Header */}
       <div className="mb-16">
-        <h1 className="text-4xl font-bold text-white mb-4">
+        <StepHeading className="text-4xl font-bold mb-4">
           Hi {firstName}! Welcome to Flexigrow, we're{" "}
           <span className="text-primary">glad you're here!</span>
-        </h1>
+        </StepHeading>
         <p className="text-xl text-white">
           Let's get started, we just sent an email to you at {email}
         </p>
