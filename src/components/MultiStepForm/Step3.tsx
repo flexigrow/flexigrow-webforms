@@ -16,26 +16,11 @@ import {
   gender,
   benefitPeriods,
   waitingPeriods,
+  step3SideContent,
 } from "./data";
 import { NumericFormat } from "react-number-format";
 import { StepHeading } from "./StepHeading";
 import { SideContent } from "./SideContent";
-import gearIconUrl from "./images/icons/gear.svg";
-
-const sideContentItems = [
-  {
-    icon: gearIconUrl,
-    heading: "Professional protection",
-    subheading:
-      "Secure professional indemnity coverage to protect against claims arising from your professional services.",
-  },
-  {
-    icon: gearIconUrl,
-    heading: "Personal accident coverage",
-    subheading:
-      "Get comprehensive accident and sickness insurance with flexible benefit options tailored to your needs.",
-  },
-];
 
 export function Step3() {
   const form = useFormContext<UnifiedFormData>();
@@ -439,7 +424,7 @@ export function Step3() {
         </div>
 
         <div className="col-span-12 md:col-span-4">
-          <SideContent items={sideContentItems} />
+          <SideContent items={step3SideContent} />
         </div>
       </div>
     </div>

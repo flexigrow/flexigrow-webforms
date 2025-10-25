@@ -8,24 +8,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
+import { step4SideContent } from "./data";
 import { StepHeading } from "./StepHeading";
 import { SideContent } from "./SideContent";
-import gearIconUrl from "./images/icons/gear.svg";
-
-const sideContentItems = [
-  {
-    icon: gearIconUrl,
-    heading: "Transparent disclosure",
-    subheading:
-      "Provide accurate information about your insurance history to ensure proper coverage assessment.",
-  },
-  {
-    icon: gearIconUrl,
-    heading: "Claims transparency",
-    subheading:
-      "Disclose any previous claims to help us provide you with the most appropriate coverage options.",
-  },
-];
 
 export function Step4() {
   const form = useFormContext<UnifiedFormData>();
@@ -501,7 +486,7 @@ export function Step4() {
         </div>
 
         <div className="col-span-12 md:col-span-4">
-          <SideContent items={sideContentItems} />
+          <SideContent items={step4SideContent} />
         </div>
       </div>
     </div>

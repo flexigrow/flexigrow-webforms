@@ -8,24 +8,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
+import { step1SideContent } from "./data";
 import { StepHeading } from "./StepHeading";
 import { SideContent } from "./SideContent";
-import gearIconUrl from "./images/icons/gear.svg";
-
-const sideContentItems = [
-  {
-    icon: gearIconUrl,
-    heading: "Simplify your financial workflow",
-    subheading:
-      "Automate invoicing and payment reminders to get paid faster with less effort.",
-  },
-  {
-    icon: gearIconUrl,
-    heading: "Cut down on paper clutter",
-    subheading:
-      "Easily scan and upload receipts for smarter, hassle-free expense tracking.",
-  },
-];
 
 export function Step1() {
   const form = useFormContext<UnifiedFormData>();
@@ -184,7 +169,7 @@ export function Step1() {
         </div>
 
         <div className="col-span-12 md:col-span-4">
-          <SideContent items={sideContentItems} />
+          <SideContent items={step1SideContent} />
         </div>
       </div>
     </div>

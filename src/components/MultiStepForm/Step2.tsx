@@ -11,26 +11,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
-import { generalLiabilityActivities } from "./data";
+import { generalLiabilityActivities, step2SideContent } from "./data";
 import { NumericFormat } from "react-number-format";
 import { StepHeading } from "./StepHeading";
 import { SideContent } from "./SideContent";
-import gearIconUrl from "./images/icons/gear.svg";
-
-const sideContentItems = [
-  {
-    icon: gearIconUrl,
-    heading: "Comprehensive protection",
-    subheading:
-      "Get coverage for public liability and professional indemnity to protect your business operations.",
-  },
-  {
-    icon: gearIconUrl,
-    heading: "Flexible coverage options",
-    subheading:
-      "Choose from different liability limits and optional personal accident coverage to suit your needs.",
-  },
-];
 
 export function Step2() {
   const form = useFormContext<UnifiedFormData>();
@@ -260,7 +244,7 @@ export function Step2() {
         </div>
 
         <div className="col-span-12 md:col-span-4">
-          <SideContent items={sideContentItems} />
+          <SideContent items={step2SideContent} />
         </div>
       </div>
     </div>

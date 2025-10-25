@@ -77,3 +77,64 @@ export const waitingPeriods = [
   { label: "21 Days", value: "21 Days" },
   { label: "28 Days", value: "28 Days" },
 ];
+
+// Side content items for each step
+export const step1SideContent = [
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Quick & easy set up",
+    subheading:
+      "Get your business account up and running — in less than 5 minutes.",
+  },
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Built for Allied Health",
+    subheading:
+      "Designed specifically to support care providers and support coordinators.",
+  },
+];
+
+export const step2SideContent = [
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Simplify your financial workflow",
+    subheading:
+      "Automate invoicing and payment reminders to get paid faster with less effort.",
+  },
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Cut down on paper clutter",
+    subheading:
+      "Easily scan and upload receipts for smarter, hassle-free expense tracking.",
+  },
+];
+
+export const step3SideContent = [
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Secure and NDIS-Ready",
+    subheading:
+      "Use built-in NDIS templates and keep data protected with industry-grade security.",
+  },
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Smart financial tracking",
+    subheading:
+      "Monitor your income and expenses with quick and easy reports based on real-time data.",
+  },
+];
+
+export const step4SideContent = [
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Access anytime, anywhere",
+    subheading:
+      "Manage your finances on desktop or mobile, wherever your work takes you.",
+  },
+  {
+    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    heading: "Flexibility as you grow",
+    subheading:
+      "For solo practitioners to expanding teams, Flexigrow scales with you.",
+  },
+];
