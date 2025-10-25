@@ -301,7 +301,7 @@ export function Step3() {
                     <Select {...field}>
                       <option value="">
                         Have you had surgery or pre-existing medical conditions
-                        requiring treatment or medication? (Yes / No) 
+                        requiring treatment or medication? (Yes / No)
                       </option>
                       <option value="yes">Yes</option>
                       <option value="no">No</option>
@@ -342,7 +342,7 @@ export function Step3() {
                     <Select {...field}>
                       <option value="">
                         Do you engage in any amateur or professional sporting
-                        activities? (Yes / No) 
+                        activities? (Yes / No)
                       </option>
                       <option value="yes">Yes</option>
                       <option value="no">No</option>
@@ -384,7 +384,7 @@ export function Step3() {
                       <option value="">
                         Will the amount of your weekly compensation from this
                         policy and all other sources exceed your weekly salary
-                        or income? (Yes / No) 
+                        or income? (Yes / No)
                       </option>
                       <option value="yes">Yes</option>
                       <option value="no">No</option>

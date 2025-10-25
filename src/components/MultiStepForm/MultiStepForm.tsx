@@ -34,7 +34,7 @@ const sideContentItems = [
 ];
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
+  const [currentStep, setCurrentStep] = useState(Step.DISCLOSURE_CLAIMS);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -111,7 +111,7 @@ export function MultiStepForm() {
         <StepIndicator currentStep={currentStep} />
 
         <div className="grid grid-cols-12 gap-24">
-          <div className="col-span-8 content-center">
+          <div className="col-span-8 content-center space-y-12">
             <Form {...form}>
               {/* Step 1: Your Details */}
               {currentStep === Step.YOUR_DETAILS && <Step1 />}
