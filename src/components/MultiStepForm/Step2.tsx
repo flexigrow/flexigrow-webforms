@@ -31,11 +31,11 @@ export function Step2() {
     <div>
       <StepHeading>Enter your general liability details:</StepHeading>
 
-      <div className="grid grid-cols-12 gap-12 xl:gap-24">
+      <div className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
         <div className="col-span-12 md:col-span-8">
           {/* Product Selection */}
           <div>
-            <h2 className="text-xl font-medium mb-8 text-white">
+            <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
               Product Selection
             </h2>
 
@@ -72,7 +72,7 @@ export function Step2() {
 
           {/* General Liability Questions */}
           <div className="mb-12">
-            <h2 className="text-xl font-medium mb-8 text-white">
+            <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
               General Liability Questions
             </h2>
 

@@ -20,9 +20,11 @@ export function Step1() {
 
       {/* Your details section */}
 
-      <div className="grid grid-cols-12 gap-12 xl:gap-24">
+      <div className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
         <div className="col-span-12 md:col-span-8">
-          <h2 className="text-xl font-medium mb-8 text-white">Your details</h2>
+          <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
+            Your details
+          </h2>
 
           <div className="space-y-6">
             {/* Row 1: Name and Business Name */}

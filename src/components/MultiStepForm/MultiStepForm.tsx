@@ -14,6 +14,7 @@ import {
   stepSchemas,
   type UnifiedFormData,
 } from "./schemas";
+import { StepIndicator } from "./StepIndicator";
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
@@ -87,12 +88,12 @@ export function MultiStepForm() {
   };
 
   return (
-    <div className="bg-[#080808] text-white p-6 sm:p-12">
+    <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12">
       <div className="mx-auto">
         {/* Step Indicator */}
-        {/* <StepIndicator currentStep={currentStep} /> */}
+        <StepIndicator currentStep={currentStep} />
 
-        <div className="space-y-12">
+        <div className="space-y-6 sm:space-y-12">
           <Form {...form}>
             {/* Step 1: Your Details */}
             {currentStep === Step.YOUR_DETAILS && <Step1 />}
@@ -115,17 +116,13 @@ export function MultiStepForm() {
             )}
           </Form>
 
-          <div className="grid grid-cols-12 gap-12 xl:gap-24">
-            <div className="col-span-12 md:col-span-8">
-              {/* Global Navigation */}
-              <MultiStepNavigation
-                isFirstStep={currentStep === Step.YOUR_DETAILS}
-                isLastStep={currentStep === Step.CONFIRMATION}
-                onPrevious={handlePrevious}
-                onNext={handleNext}
-              />
-            </div>
-          </div>
+          {/* Global Navigation */}
+          <MultiStepNavigation
+            isFirstStep={currentStep === Step.YOUR_DETAILS}
+            isLastStep={currentStep === Step.CONFIRMATION}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
         </div>
       </div>
     </div>
