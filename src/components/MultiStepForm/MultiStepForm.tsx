@@ -16,7 +16,7 @@ import {
 } from "./schemas";
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
+  const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -119,7 +119,6 @@ export function MultiStepForm() {
             <div className="col-span-12 md:col-span-8">
               {/* Global Navigation */}
               <MultiStepNavigation
-                currentStep={currentStep}
                 isFirstStep={currentStep === Step.YOUR_DETAILS}
                 isLastStep={currentStep === Step.CONFIRMATION}
                 onPrevious={handlePrevious}

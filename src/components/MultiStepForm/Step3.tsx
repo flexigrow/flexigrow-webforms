@@ -2,6 +2,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { CustomDatePicker } from "@/components/ui/custom-date-picker";
 import {
   FormField,
   FormItem,
@@ -169,11 +170,12 @@ export function Step3() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input
-                            type="date"
+                          <CustomDatePicker
+                            value={field.value}
+                            onChange={field.onChange}
                             placeholder="Date of Birth of Insured Person"
-                            className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
-                            {...field}
+                            fromYear={1900}
+                            toYear={new Date().getFullYear()}
                           />
                         </FormControl>
                         <FormMessage />

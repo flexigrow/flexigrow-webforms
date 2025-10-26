@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 
 interface MultiStepNavigationProps {
-  currentStep: number;
   isFirstStep: boolean;
   isLastStep: boolean;
   onPrevious: () => void;
@@ -9,7 +8,6 @@ interface MultiStepNavigationProps {
 }
 
 export function MultiStepNavigation({
-  currentStep,
   isFirstStep,
   isLastStep,
   onPrevious,

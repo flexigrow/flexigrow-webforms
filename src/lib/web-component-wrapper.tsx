@@ -1,129 +1,153 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import r2wc from "react-to-webcomponent";
 import styleSheet from "@/index.css?inline";
 
 /**
- * Web Component Wrapper
- * This utility converts React components into Web Components that can be used in any HTML page
+ * Web Component Wrapper using react-to-webcomponent library
+ *
+ * Creates Web Components from React components that can be used in any HTML page
  * including WordPress sites.
  *
- * Key features:
- * - Shadow DOM for style isolation
- * - Props passed as attributes or JSON
+ * Features:
+ * - Shadow DOM support (optional)
+ * - Props passed as attributes
  * - Event handling through custom events
- * - Lifecycle management
+ * - Automatic style injection (to shadow DOM or document head)
+ * - Lifecycle management via react-to-webcomponent
  */
 
 interface WebComponentConfig {
   tagName: string;
   Component: React.ComponentType<any>;
-  attributes?: string[];
-  observedAttributes?: string[];
+  props?: Record<string, string>;
+  shadow?: "open" | "closed" | undefined;
 }
 
 export function createWebComponent({
   tagName,
   Component,
-  attributes = [],
-  observedAttributes = [],
+  props = {},
+  shadow = undefined,
 }: WebComponentConfig) {
-  class ReactWebComponent extends HTMLElement {
-    private root: ReactDOM.Root | null = null;
-    private _shadowRoot: ShadowRoot;
-    private props: Record<string, any> = {};
+  // Create a wrapper component that handles event dispatching
+  const WrappedComponent = React.forwardRef<HTMLElement, any>((props, ref) => {
+    const elementRef = React.useRef<HTMLElement | null>(null);
 
-    static get observedAttributes() {
-      return [...observedAttributes, ...attributes];
-    }
+    React.useImperativeHandle(ref, () => elementRef.current as HTMLElement);
 
+    // Wrap event handlers to dispatch custom events
+    const wrappedProps = React.useMemo(() => {
+      const newProps = { ...props };
+
+      // Helper to dispatch custom events
+      const dispatchEvent = (eventName: string, detail: any) => {
+        if (elementRef.current) {
+          const event = new CustomEvent(eventName, {
+            detail,
+            bubbles: true,
+            composed: true,
+          });
+          elementRef.current.dispatchEvent(event);
+        }
+      };
+
+      // Wrap callback props to dispatch events
+      if (props.onSubmit) {
+        const original = props.onSubmit;
+        newProps.onSubmit = (data: any) => {
+          dispatchEvent("submit", data);
+          original?.(data);
+        };
+      }
+
+      if (props.onSuccess) {
+        const original = props.onSuccess;
+        newProps.onSuccess = (data: any) => {
+          dispatchEvent("success", data);
+          original?.(data);
+        };
+      }
+
+      if (props.onError) {
+        const original = props.onError;
+        newProps.onError = (error: any) => {
+          dispatchEvent("error", error);
+          original?.(error);
+        };
+      }
+
+      if (props.onChange) {
+        const original = props.onChange;
+        newProps.onChange = (data: any) => {
+          dispatchEvent("change", data);
+          original?.(data);
+        };
+      }
+
+      return newProps;
+    }, [props]);
+
+    React.useEffect(() => {
+      // Store reference to the host element
+      // In react-to-webcomponent, we need to traverse up to find the custom element
+      let current = (ref as any)?.current;
+      if (!current) return;
+
+      // Find the custom element (host)
+      while (current && current.tagName?.toLowerCase() !== tagName) {
+        current = current.parentElement;
+      }
+
+      if (current) {
+        elementRef.current = current;
+      }
+    }, []);
+
+    return <Component {...wrappedProps} />;
+  });
+
+  WrappedComponent.displayName = `WebComponent(${
+    Component.displayName || Component.name || "Component"
+  })`;
+
+  // Convert props object to r2wc format
+  const r2wcProps: Record<string, any> = {};
+  Object.keys(props).forEach((key) => {
+    r2wcProps[key] = props[key] || "string";
+  });
+
+  // Create the web component using react-to-webcomponent
+  const WebComponent = r2wc(WrappedComponent, React, ReactDOM, {
+    props: r2wcProps,
+    shadow,
+  });
+
+  // Extend the web component to inject styles
+  class StyledWebComponent extends WebComponent {
     constructor() {
       super();
-      // Create shadow DOM for style isolation
-      this._shadowRoot = this.attachShadow({ mode: "open" }) as ShadowRoot;
 
-      // Load Google Fonts
-      this.loadGoogleFonts();
+      // Inject styles based on whether shadow DOM is used
+      if (shadow && this.shadowRoot) {
+        // Inject styles into shadow DOM
+        const style = document.createElement("style");
+        style.textContent = styleSheet;
+        this.shadowRoot.insertBefore(style, this.shadowRoot.firstChild);
 
-      // Inject styles into Shadow DOM
-      const style = document.createElement("style");
-      style.textContent = styleSheet;
-      this._shadowRoot.appendChild(style);
-
-      // Create mount point
-      const mountPoint = document.createElement("div");
-      this._shadowRoot.appendChild(mountPoint);
-    }
-
-    connectedCallback() {
-      this.updateProps();
-      this.mount();
-    }
-
-    disconnectedCallback() {
-      this.unmount();
-    }
-
-    attributeChangedCallback(
-      _name: string,
-      oldValue: string,
-      newValue: string
-    ) {
-      if (oldValue !== newValue) {
-        this.updateProps();
-        this.mount();
-      }
-    }
-
-    private updateProps() {
-      const newProps: Record<string, any> = {};
-
-      // Get attributes
-      Array.from(this.attributes).forEach((attr) => {
-        const value = attr.value;
-        // Try to parse as JSON, fallback to string
-        try {
-          newProps[this.camelCase(attr.name)] = JSON.parse(value);
-        } catch {
-          newProps[this.camelCase(attr.name)] = value;
+        // Load Google Fonts in the document head (fonts need to be in light DOM)
+        this.loadGoogleFonts();
+      } else {
+        // Inject styles into document head (no shadow DOM)
+        const styleId = `${tagName}-styles`;
+        if (!document.getElementById(styleId)) {
+          const style = document.createElement("style");
+          style.id = styleId;
+          style.textContent = styleSheet;
+          document.head.appendChild(style);
         }
-      });
-
-      // Add event handlers
-      this.props = {
-        ...newProps,
-        onSubmit: (data: any) =>
-          this.dispatchEvent(
-            new CustomEvent("submit", {
-              detail: data,
-              bubbles: true,
-              composed: true,
-            })
-          ),
-        onSuccess: (data: any) =>
-          this.dispatchEvent(
-            new CustomEvent("success", {
-              detail: data,
-              bubbles: true,
-              composed: true,
-            })
-          ),
-        onError: (error: any) =>
-          this.dispatchEvent(
-            new CustomEvent("error", {
-              detail: error,
-              bubbles: true,
-              composed: true,
-            })
-          ),
-        onChange: (data: any) =>
-          this.dispatchEvent(
-            new CustomEvent("change", {
-              detail: data,
-              bubbles: true,
-              composed: true,
-            })
-          ),
-      };
+        this.loadGoogleFonts();
+      }
     }
 
     private loadGoogleFonts() {
@@ -155,38 +179,12 @@ export function createWebComponent({
       fontLink.rel = "stylesheet";
       document.head.appendChild(fontLink);
     }
-
-    private camelCase(str: string): string {
-      return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-    }
-
-    private mount() {
-      const mountPoint = this._shadowRoot.querySelector("div");
-      if (!mountPoint) return;
-
-      if (!this.root) {
-        this.root = ReactDOM.createRoot(mountPoint);
-      }
-
-      this.root.render(
-        <React.StrictMode>
-          <Component {...this.props} />
-        </React.StrictMode>
-      );
-    }
-
-    private unmount() {
-      if (this.root) {
-        this.root.unmount();
-        this.root = null;
-      }
-    }
   }
 
-  // Register the custom element
+  // Register the custom element if not already registered
   if (!customElements.get(tagName)) {
-    customElements.define(tagName, ReactWebComponent);
+    customElements.define(tagName, StyledWebComponent);
   }
 
-  return ReactWebComponent;
+  return StyledWebComponent;
 }
