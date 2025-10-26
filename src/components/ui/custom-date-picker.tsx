@@ -114,7 +114,6 @@ export function CustomDatePicker({
       formattedValue = `${year}-${month}-${day}`;
     }
 
-    console.log("Date selected:", date, "Formatted:", formattedValue);
     onChange?.(formattedValue);
     setIsOpen(false);
   };
@@ -164,11 +163,10 @@ export function CustomDatePicker({
   };
 
   const formatDisplayDate = (date: Date) => {
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   const handlePreviousMonth = () => {
@@ -197,11 +195,6 @@ export function CustomDatePicker({
     return yearArray;
   }, [fromYear, toYear]);
 
-  // Debug log
-  React.useEffect(() => {
-    console.log("CustomDatePicker - value:", value, "dateValue:", dateValue);
-  }, [value, dateValue]);
-
   return (
     <div ref={containerRef} className="relative">
       {/* Input Button */}
@@ -210,14 +203,14 @@ export function CustomDatePicker({
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "h-16 w-full flex items-center justify-start text-left font-normal bg-[#1a1a1a] border-0 text-white hover:bg-[#252525] focus-visible:ring-0 focus-visible:outline-none rounded-2xl px-6 text-base",
+          "h-16 w-full flex items-center justify-between text-left font-normal bg-[#1a1a1a] border-0 text-white hover:bg-[#252525] focus-visible:ring-0 focus-visible:outline-none rounded-2xl px-6 text-base",
           !dateValue && "text-gray-500",
           disabled && "opacity-50 cursor-not-allowed",
           className
         )}
       >
-        <CalendarIcon className="mr-2 h-4 w-4 flex-shrink-0" />
         <span>{dateValue ? formatDisplayDate(dateValue) : placeholder}</span>
+        <CalendarIcon className="ml-2 h-4 w-4 flex-shrink-0" />
       </button>
 
       {/* Calendar Dropdown */}
