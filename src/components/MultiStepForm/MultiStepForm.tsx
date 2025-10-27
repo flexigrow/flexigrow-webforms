@@ -21,6 +21,7 @@ import { transformFormDataToPayload } from "./transformFormData";
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -54,8 +55,10 @@ export function MultiStepForm() {
     if (isValid) {
       if (currentStep === Step.DISCLOSURE_CLAIMS) {
         // Submit all form data to API
+        setIsSubmitting(true);
         const formData = form.getValues();
         await submitToAPI(formData);
+        setIsSubmitting(false);
       }
       setCurrentStep(currentStep + 1);
     }
@@ -89,8 +92,7 @@ export function MultiStepForm() {
         throw new Error("Failed to submit form");
       }
 
-      const result = await response.json();
-      console.log("Form submitted successfully:", result);
+      await response.json();
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -145,6 +147,8 @@ export function MultiStepForm() {
               <MultiStepNavigation
                 isFirstStep={currentStep === Step.YOUR_DETAILS}
                 isLastStep={currentStep === Step.CONFIRMATION}
+                currentStep={currentStep}
+                isSubmitting={isSubmitting}
                 onPrevious={handlePrevious}
                 onNext={handleNext}
               />
