@@ -49,7 +49,7 @@ export function Step4() {
         Enter your disclosure and claims details:
       </StepHeading>
 
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
+      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 px-8 sm:px-10">
         <div className="col-span-12 xl:col-span-8">
           <div className="mt-12">
             {/* Your disclosure details */}

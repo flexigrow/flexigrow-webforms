@@ -11,7 +11,7 @@ export function Step5({
   email = "your email",
 }: Step5Props) {
   return (
-    <div className="py-8 sm:py-12 lg:py-20">
+    <div className="py-8 sm:py-12 lg:py-20 px-8 sm:px-10">
       {/* Welcome Header */}
       <div className="mb-8 sm:mb-12 lg:mb-16">
         <StepHeading className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
