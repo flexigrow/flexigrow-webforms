@@ -15,6 +15,7 @@ import {
   type UnifiedFormData,
 } from "./schemas";
 import { StepIndicator } from "./StepIndicator";
+import { formDefaultValues } from "./data";
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
@@ -22,9 +23,8 @@ export function MultiStepForm() {
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
     resolver: zodResolver(unifiedSchema),
-    defaultValues: {
-      productSelection: "public-liability",
-    },
+    mode: "onTouched", // Only validate after user interacts with field
+    defaultValues: formDefaultValues,
   });
 
   // Global navigation handlers
