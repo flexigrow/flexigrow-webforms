@@ -93,36 +93,41 @@ export function MultiStepForm() {
         {/* Step Indicator */}
         <StepIndicator currentStep={currentStep} />
 
-        <div className="space-y-6 sm:space-y-12">
-          <Form {...form}>
-            {/* Step 1: Your Details */}
-            {currentStep === Step.YOUR_DETAILS && <Step1 />}
+        <Form {...form}>
+          {/* Step 1: Your Details */}
+          {currentStep === Step.YOUR_DETAILS && <Step1 />}
 
-            {/* Step 2: General Liability */}
-            {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
+          {/* Step 2: General Liability */}
+          {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
 
-            {/* Step 3: Professional Indemnity */}
-            {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
+          {/* Step 3: Professional Indemnity */}
+          {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
 
-            {/* Step 4: Disclosure and Claims Details */}
-            {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
+          {/* Step 4: Disclosure and Claims Details */}
+          {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
 
-            {/* Step 5: Welcome/Success Page */}
-            {currentStep === Step.CONFIRMATION && (
-              <Step5
-                firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
-                email={form.getValues("email") || "your email"}
-              />
-            )}
-          </Form>
+          {/* Step 5: Welcome/Success Page */}
+          {currentStep === Step.CONFIRMATION && (
+            <Step5
+              firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
+              email={form.getValues("email") || "your email"}
+            />
+          )}
+        </Form>
 
-          {/* Global Navigation */}
-          <MultiStepNavigation
-            isFirstStep={currentStep === Step.YOUR_DETAILS}
-            isLastStep={currentStep === Step.CONFIRMATION}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-          />
+        {/* Global Navigation - Left side only */}
+        <div className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 mt-6 sm:mt-12">
+          <div className="col-span-12 md:col-span-8">
+            <MultiStepNavigation
+              isFirstStep={currentStep === Step.YOUR_DETAILS}
+              isLastStep={currentStep === Step.CONFIRMATION}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+            />
+          </div>
+          <div className="col-span-12 md:col-span-4">
+            {/* Empty space to match the SideContent layout */}
+          </div>
         </div>
       </div>
     </div>
