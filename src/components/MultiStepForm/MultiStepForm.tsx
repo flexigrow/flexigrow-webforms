@@ -17,7 +17,7 @@ import {
 import { StepIndicator } from "./StepIndicator";
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.DISCLOSURE_CLAIMS);
+  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
@@ -88,48 +88,64 @@ export function MultiStepForm() {
   };
 
   return (
-    <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
-      <div className="mx-auto">
-        {/* Step Indicator */}
-        <StepIndicator currentStep={currentStep} />
+    <>
+      {/* Title and Subtitle - Only visible on Step 1 */}
+      {currentStep === Step.YOUR_DETAILS && (
+        <div className="text-left text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
+          <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold leading-tight lg:leading-[72px] mb-4">
+            This will only take a{" "}
+            <span className="text-[#C6FF00]">few minutes.</span>
+          </h1>
+          <p className="text-lg sm:text-xl font-normal leading-[100%] text-white/80">
+            We just need a few quick details to tailor Flexigrow to your
+            business needs.
+          </p>
+        </div>
+      )}
 
-        <Form {...form}>
-          {/* Step 1: Your Details */}
-          {currentStep === Step.YOUR_DETAILS && <Step1 />}
+      <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
+        <div className="mx-auto">
+          {/* Step Indicator */}
+          <StepIndicator currentStep={currentStep} />
 
-          {/* Step 2: General Liability */}
-          {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
+          <Form {...form}>
+            {/* Step 1: Your Details */}
+            {currentStep === Step.YOUR_DETAILS && <Step1 />}
 
-          {/* Step 3: Professional Indemnity */}
-          {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
+            {/* Step 2: General Liability */}
+            {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
 
-          {/* Step 4: Disclosure and Claims Details */}
-          {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
+            {/* Step 3: Professional Indemnity */}
+            {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
 
-          {/* Step 5: Welcome/Success Page */}
-          {currentStep === Step.CONFIRMATION && (
-            <Step5
-              firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
-              email={form.getValues("email") || "your email"}
-            />
-          )}
-        </Form>
+            {/* Step 4: Disclosure and Claims Details */}
+            {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
 
-        {/* Global Navigation - Left side only */}
-        <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 mt-6 sm:mt-12">
-          <div className="col-span-12 xl:col-span-8">
-            <MultiStepNavigation
-              isFirstStep={currentStep === Step.YOUR_DETAILS}
-              isLastStep={currentStep === Step.CONFIRMATION}
-              onPrevious={handlePrevious}
-              onNext={handleNext}
-            />
-          </div>
-          <div className="col-span-12 xl:col-span-4">
-            {/* Empty space to match the SideContent layout */}
+            {/* Step 5: Welcome/Success Page */}
+            {currentStep === Step.CONFIRMATION && (
+              <Step5
+                firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
+                email={form.getValues("email") || "your email"}
+              />
+            )}
+          </Form>
+
+          {/* Global Navigation - Left side only */}
+          <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 mt-6 sm:mt-12">
+            <div className="col-span-12 xl:col-span-8">
+              <MultiStepNavigation
+                isFirstStep={currentStep === Step.YOUR_DETAILS}
+                isLastStep={currentStep === Step.CONFIRMATION}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+              />
+            </div>
+            <div className="col-span-12 xl:col-span-4">
+              {/* Empty space to match the SideContent layout */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -71,7 +71,7 @@ export function Step2() {
           </div>
 
           {/* General Liability Questions */}
-          <div className="mb-12">
+          <div className="mt-12 mb-12">
             <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
               General Liability Questions
             </h2>
