@@ -17,11 +17,11 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
   const currentStepTitle = steps[currentStepIndex]?.title || "";
 
   return (
-    <div className="mb-8 sm:mb-12 lg:mb-16 px-4">
-      {/* Progress Bar and Circles - Centered */}
-      <div className="flex items-center max-w-md md:max-w-2xl lg:max-w-4xl mx-auto">
-        {/* Left spacer for balance */}
-        <div className="flex-1" />
+    <div className="mb-8 sm:mb-12 lg:mb-16">
+      {/* Progress Bar and Circles - Centered on mobile, left-aligned on desktop */}
+      <div className="flex items-center max-w-md md:max-w-2xl lg:max-w-4xl mx-auto md:mx-0">
+        {/* Left spacer for balance on mobile only */}
+        <div className="flex-1 md:hidden" />
 
         {steps.map((step, index) => {
           const isCompleted = step.id < currentStep;
@@ -81,8 +81,8 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
           );
         })}
 
-        {/* Right spacer for balance */}
-        <div className="flex-1" />
+        {/* Right spacer for balance on mobile only */}
+        <div className="flex-1 md:hidden" />
       </div>
 
       {/* Mobile: Current Step Info */}

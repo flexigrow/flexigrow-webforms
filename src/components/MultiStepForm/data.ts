@@ -79,15 +79,16 @@ export const waitingPeriods = [
 ];
 
 // Side content items for each step
+// Note: Empty icon strings will use the inline fallback gear icon in SideContent component
 export const step1SideContent = [
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Quick & easy set up",
     subheading:
       "Get your business account up and running — in less than 5 minutes.",
   },
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Built for Allied Health",
     subheading:
       "Designed specifically to support care providers and support coordinators.",
@@ -96,13 +97,13 @@ export const step1SideContent = [
 
 export const step2SideContent = [
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Simplify your financial workflow",
     subheading:
       "Automate invoicing and payment reminders to get paid faster with less effort.",
   },
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Cut down on paper clutter",
     subheading:
       "Easily scan and upload receipts for smarter, hassle-free expense tracking.",
@@ -111,13 +112,13 @@ export const step2SideContent = [
 
 export const step3SideContent = [
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Secure and NDIS-Ready",
     subheading:
       "Use built-in NDIS templates and keep data protected with industry-grade security.",
   },
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Smart financial tracking",
     subheading:
       "Monitor your income and expenses with quick and easy reports based on real-time data.",
@@ -126,13 +127,13 @@ export const step3SideContent = [
 
 export const step4SideContent = [
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Access anytime, anywhere",
     subheading:
       "Manage your finances on desktop or mobile, wherever your work takes you.",
   },
   {
-    icon: "/src/components/MultiStepForm/images/icons/gear.svg",
+    icon: "",
     heading: "Flexibility as you grow",
     subheading:
       "For solo practitioners to expanding teams, Flexigrow scales with you.",
