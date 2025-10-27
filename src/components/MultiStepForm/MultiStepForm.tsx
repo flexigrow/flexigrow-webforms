@@ -88,7 +88,7 @@ export function MultiStepForm() {
   };
 
   return (
-    <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12">
+    <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
       <div className="mx-auto">
         {/* Step Indicator */}
         <StepIndicator currentStep={currentStep} />
@@ -116,8 +116,8 @@ export function MultiStepForm() {
         </Form>
 
         {/* Global Navigation - Left side only */}
-        <div className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 mt-6 sm:mt-12">
-          <div className="col-span-12 md:col-span-8">
+        <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 mt-6 sm:mt-12">
+          <div className="col-span-12 xl:col-span-8">
             <MultiStepNavigation
               isFirstStep={currentStep === Step.YOUR_DETAILS}
               isLastStep={currentStep === Step.CONFIRMATION}
@@ -125,7 +125,7 @@ export function MultiStepForm() {
               onNext={handleNext}
             />
           </div>
-          <div className="col-span-12 md:col-span-4">
+          <div className="col-span-12 xl:col-span-4">
             {/* Empty space to match the SideContent layout */}
           </div>
         </div>

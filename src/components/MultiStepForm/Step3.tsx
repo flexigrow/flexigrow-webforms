@@ -42,8 +42,8 @@ export function Step3() {
     <div>
       <StepHeading>Enter your professional indemnity details:</StepHeading>
 
-      <div className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
-        <div className="col-span-12 md:col-span-8">
+      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
+        <div className="col-span-12 xl:col-span-8">
           <div className="space-y-6">
             {/* Professional Indemnity */}
             <div>
@@ -425,7 +425,7 @@ export function Step3() {
           </div>
         </div>
 
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-12 xl:col-span-4">
           <SideContent items={step3SideContent} />
         </div>
       </div>

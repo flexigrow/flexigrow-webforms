@@ -49,7 +49,7 @@ const SideContentItem = ({ icon, heading, subheading }: SideContentItem) => {
 
 export const SideContent = ({ items }: SideContentProps) => {
   return (
-    <div className="col-span-12 md:col-span-4 flex flex-col gap-6 sm:gap-8">
+    <div className="flex flex-col gap-6 sm:gap-8">
       {items.map((item, index) => (
         <SideContentItem
           key={index}

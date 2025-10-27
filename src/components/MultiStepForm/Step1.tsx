@@ -20,8 +20,8 @@ export function Step1() {
 
       {/* Your details section */}
 
-      <div className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
-        <div className="col-span-12 md:col-span-8">
+      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
+        <div className="col-span-12 xl:col-span-8">
           <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
             Your details
           </h2>
@@ -170,7 +170,7 @@ export function Step1() {
           </div>
         </div>
 
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-12 xl:col-span-4">
           <SideContent items={step1SideContent} />
         </div>
       </div>
