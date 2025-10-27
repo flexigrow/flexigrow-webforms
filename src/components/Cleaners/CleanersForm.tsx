@@ -20,7 +20,7 @@ import { StepIndicator } from "./StepIndicator";
 import { transformFormDataToPayload } from "./transformFormData";
 
 export function CleanersForm() {
-  const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
+  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Single form instance for all steps
