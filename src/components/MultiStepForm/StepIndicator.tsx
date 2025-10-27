@@ -17,9 +17,9 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
   const currentStepTitle = steps[currentStepIndex]?.title || "";
 
   return (
-    <div className="mb-8 sm:mb-12 lg:mb-16">
+    <div className="mb-8 sm:mb-12 md:mb-14 xl:mb-20">
       {/* Progress Bar and Circles - Centered on mobile, left-aligned on desktop */}
-      <div className="flex items-center max-w-md md:max-w-2xl lg:max-w-4xl mx-auto md:mx-0">
+      <div className="flex items-center max-w-md md:max-w-3xl xl:max-w-5xl mx-auto md:mx-0">
         {/* Left spacer for balance on mobile only */}
         <div className="flex-1 md:hidden" />
 
@@ -31,9 +31,9 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
           return (
             <div key={step.id} className="flex items-center">
               {/* Step Circle and Label */}
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-3 xl:gap-4">
                 <div
-                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-medium transition-colors ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center font-medium transition-colors ${
                     isCompleted
                       ? "bg-primary text-black"
                       : isCurrent
@@ -41,10 +41,10 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                       : "bg-[#3F4040] text-white"
                   }`}
                 >
-                  {isCompleted ? (
-                    // Checkmark for completed steps
+                  <>
+                    {/* Checkmark for all steps - Desktop only */}
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      className="hidden md:block w-3 h-3"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -56,15 +56,14 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                  ) : (
-                    // Step number for current and future steps
-                    <span className="text-xs sm:text-sm font-bold">
+                    {/* Step number for all steps - Mobile only */}
+                    <span className="text-xs font-bold md:hidden">
                       {index + 1}
                     </span>
-                  )}
+                  </>
                 </div>
                 {/* Hide labels on mobile, show on tablet and up */}
-                <span className="hidden md:inline text-xs lg:text-sm font-normal text-white whitespace-nowrap">
+                <span className="hidden md:inline text-sm font-normal text-white whitespace-nowrap">
                   {step.title}
                 </span>
               </div>
@@ -72,7 +71,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
               {/* Connector Line */}
               {!isLast && (
                 <div
-                  className={`h-[2px] w-12 sm:w-16 md:w-20 lg:w-24 mx-2 sm:mx-4 transition-colors ${
+                  className={`h-[2px] md:h-[2.5px] xl:h-[3px] w-12 sm:w-16 md:w-24 xl:w-32 mx-2 sm:mx-4 md:mx-4 xl:mx-6 transition-colors ${
                     step.id < currentStep ? "bg-primary" : "bg-[#3F4040]"
                   }`}
                 />

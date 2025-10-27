@@ -17,7 +17,7 @@ import {
 import { StepIndicator } from "./StepIndicator";
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
+  const [currentStep, setCurrentStep] = useState(Step.DISCLOSURE_CLAIMS);
 
   // Single form instance for all steps
   const form = useForm<UnifiedFormData>({
