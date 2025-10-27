@@ -13,7 +13,6 @@ import {
 } from "./schemas";
 import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
-import { Step3 } from "./Step3";
 import { Step4 } from "./Step4";
 import { Step5 } from "./Step5";
 import { StepIndicator } from "./StepIndicator";
@@ -126,13 +125,10 @@ export function GeneralBusinessForm() {
             {/* Step 2: General Liability */}
             {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
 
-            {/* Step 3: Professional Indemnity */}
-            {currentStep === Step.PROFESSIONAL_INDEMNITY && <Step3 />}
-
-            {/* Step 4: Disclosure and Claims Details */}
+            {/* Step 3: Disclosure and Claims Details */}
             {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
 
-            {/* Step 5: Welcome/Success Page */}
+            {/* Step 4: Welcome/Success Page */}
             {currentStep === Step.CONFIRMATION && (
               <Step5
                 firstName={form.getValues("name")?.split(" ")[0] || "there"}

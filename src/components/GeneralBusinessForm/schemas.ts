@@ -4,9 +4,8 @@ import * as z from "zod";
 export enum Step {
   YOUR_DETAILS = 1,
   GENERAL_LIABILITY = 2,
-  PROFESSIONAL_INDEMNITY = 3,
-  DISCLOSURE_CLAIMS = 4,
-  CONFIRMATION = 5,
+  DISCLOSURE_CLAIMS = 3,
+  CONFIRMATION = 4,
 }
 
 // Step-specific validation schemas
@@ -34,42 +33,12 @@ export const step1Schema = z.object({
 });
 
 export const step2Schema = z.object({
-  productSelection: z.enum(["public-liability", "personal-accident"]),
-  activities: z.array(z.string()).min(1, "Please select at least one activity"),
-  prescribeDrugs: z.string().min(1, "Please answer this question"),
-  prescribeDrugsDetails: z.string().optional(),
-  medicalTreatments: z.string().min(1, "Please answer this question"),
-  medicalTreatmentsDetails: z.string().optional(),
-  limitOfLiability: z.string().min(1, "Please select limit of liability"),
-  employPeople: z.string().min(1, "Please answer this question"),
-  numberOfEmployees: z.string().optional(),
+  industry: z.string().min(1, "Industry is required"),
+  annualTurnover: z.string().min(1, "Annual turnover is required"),
+  numberOfEmployees: z.string().min(1, "Number of employees is required"),
 });
 
 export const step3Schema = z.object({
-  limitOfIndemnity: z.string().min(1, "Please select limit of indemnity"),
-  typeOfCover: z.string().min(1, "Please select type of cover"),
-  scopeOfCover: z.string().min(1, "Please select scope of cover"),
-  gender: z.string().min(1, "Please select gender"),
-  fullNameOfInsuredPerson: z.string().min(2, "Full name is required"),
-  dateOfBirthOfInsuredPerson: z.string().min(1, "Date of birth is required"),
-  weeklySicknessBenefit: z.string().optional(),
-  weeklyInjuryBenefit: z.string().optional(),
-  lumpSumBenefit: z.string().optional(),
-  benefitPeriod: z.string().min(1, "Please select benefit period"),
-  waitingPeriod: z.string().min(1, "Please select waiting period"),
-  surgeryOrPreExistingConditions: z
-    .string()
-    .min(1, "Please answer this question"),
-  surgeryOrPreExistingConditionsDetails: z.string().optional(),
-  sportingActivities: z.string().min(1, "Please answer this question"),
-  sportingActivitiesDetails: z.string().optional(),
-  weeklyCompensationExceedIncome: z
-    .string()
-    .min(1, "Please answer this question"),
-  weeklyCompensationExceedIncomeDetails: z.string().optional(),
-});
-
-export const step4Schema = z.object({
   insuranceDeclined: z.enum(["yes", "no"]),
   insuranceDeclinedDetails: z.string().optional(),
   renewalRefused: z.enum(["yes", "no"]),
@@ -90,10 +59,7 @@ export const step4Schema = z.object({
 });
 
 // Combined schema for form data type
-export const unifiedSchema = step1Schema
-  .merge(step2Schema)
-  .merge(step3Schema)
-  .merge(step4Schema);
+export const unifiedSchema = step1Schema.merge(step2Schema).merge(step3Schema);
 
 export type UnifiedFormData = z.infer<typeof unifiedSchema>;
 
@@ -101,6 +67,5 @@ export type UnifiedFormData = z.infer<typeof unifiedSchema>;
 export const stepSchemas = {
   [Step.YOUR_DETAILS]: step1Schema,
   [Step.GENERAL_LIABILITY]: step2Schema,
-  [Step.PROFESSIONAL_INDEMNITY]: step3Schema,
-  [Step.DISCLOSURE_CLAIMS]: step4Schema,
+  [Step.DISCLOSURE_CLAIMS]: step3Schema,
 };

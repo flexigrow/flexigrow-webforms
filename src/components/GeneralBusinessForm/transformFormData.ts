@@ -7,12 +7,6 @@ import { EInsuranceType } from "./data";
  * @returns The transformed payload ready for API submission
  */
 export function transformFormDataToPayload(formData: UnifiedFormData) {
-  // Map productSelection to productType
-  const productTypeMap = {
-    "public-liability": "Public Liability & Professional Indemnity",
-    "personal-accident": "Personal Accident",
-  };
-
   return {
     // Top-level fields
     name: formData.name,
@@ -33,47 +27,16 @@ export function transformFormDataToPayload(formData: UnifiedFormData) {
 
     // Data form object with all insurance-related fields
     dataForm: {
-      productType:
-        productTypeMap[
-          formData.productSelection as keyof typeof productTypeMap
-        ] || formData.productSelection,
-      activities: formData.activities,
-      dispensePrescribeDrugs: formData.prescribeDrugs,
-      prescribeDrugsDetails: formData.prescribeDrugsDetails,
-      medicalProcedures: formData.medicalTreatments,
-      medicalTreatmentsDetails: formData.medicalTreatmentsDetails,
-      limitOfLiability: formData.limitOfLiability
-        ? Number(formData.limitOfLiability)
+      // Step 2: General Liability
+      industry: formData.industry,
+      annualTurnover: formData.annualTurnover
+        ? Number(formData.annualTurnover.replace(/[$,\s]/g, ""))
         : 0,
-      isEmployPeople: formData.employPeople,
       numberOfEmployees: formData.numberOfEmployees
-        ? Number(formData.numberOfEmployees)
+        ? Number(formData.numberOfEmployees.replace(/[,]/g, ""))
         : 0,
-      limitOfIndemnity: formData.limitOfIndemnity
-        ? Number(formData.limitOfIndemnity)
-        : 0,
-      typeOfCover: formData.typeOfCover,
-      scopeOfCover: formData.scopeOfCover,
-      gender: formData.gender,
-      fullNameOfInsuredPerson: formData.fullNameOfInsuredPerson,
-      dateOfBirthOfInsuredPerson: formData.dateOfBirthOfInsuredPerson,
-      weeklySicknessBenefit: formData.weeklySicknessBenefit
-        ? Number(formData.weeklySicknessBenefit.replace(/[$,]/g, ""))
-        : 0,
-      weeklyInjuryBenefit: formData.weeklyInjuryBenefit
-        ? Number(formData.weeklyInjuryBenefit.replace(/[$,]/g, ""))
-        : 0,
-      lumpSumBenefit: formData.lumpSumBenefit
-        ? Number(formData.lumpSumBenefit.replace(/[$,]/g, ""))
-        : 0,
-      benefitPeriod: formData.benefitPeriod,
-      waitingPeriod: formData.waitingPeriod,
-      medicalConditions: formData.surgeryOrPreExistingConditions,
-      medicalConditionsDetails: formData.surgeryOrPreExistingConditionsDetails,
-      sportingActivities: formData.sportingActivities,
-      sportingActivitiesDetails: formData.sportingActivitiesDetails,
-      weeklyCompensation: formData.weeklyCompensationExceedIncome,
-      weeklyCompensationDetails: formData.weeklyCompensationExceedIncomeDetails,
+
+      // Step 3: Disclosure & Claims
       disclosureInsuranceDeclined: formData.insuranceDeclined,
       disclosureInsuranceDeclinedDetails: formData.insuranceDeclinedDetails,
       disclosureInsuranceRenewal: formData.renewalRefused,
@@ -92,6 +55,6 @@ export function transformFormDataToPayload(formData: UnifiedFormData) {
     },
 
     // Insurance type
-    insuranceType: EInsuranceType.ALLIED_HEALTH_AND_NDIS,
+    insuranceType: EInsuranceType.GENERAL_BUSINESS,
   };
 }

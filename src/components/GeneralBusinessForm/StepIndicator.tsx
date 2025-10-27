@@ -7,7 +7,6 @@ interface StepIndicatorProps {
 const steps = [
   { id: Step.YOUR_DETAILS, title: "Your Details" },
   { id: Step.GENERAL_LIABILITY, title: "General Liability" },
-  { id: Step.PROFESSIONAL_INDEMNITY, title: "Professional Indemnity" },
   { id: Step.DISCLOSURE_CLAIMS, title: "Disclosure & Claims" },
   { id: Step.CONFIRMATION, title: "Confirmation" },
 ];

@@ -148,7 +148,7 @@ export const step4SideContent = [
 
 // Form default values
 export const formDefaultValues = {
-  // Step 1
+  // Step 1: Your Details
   name: "",
   businessName: "",
   abn: "",
@@ -162,35 +162,11 @@ export const formDefaultValues = {
   website: "",
   email: "",
   phoneNumber: "",
-  // Step 2
-  productSelection: "public-liability" as const,
-  activities: [],
-  prescribeDrugs: "",
-  prescribeDrugsDetails: "",
-  medicalTreatments: "",
-  medicalTreatmentsDetails: "",
-  limitOfLiability: "",
-  employPeople: "",
+  // Step 2: General Liability
+  industry: "",
+  annualTurnover: "",
   numberOfEmployees: "",
-  // Step 3
-  limitOfIndemnity: "",
-  typeOfCover: "",
-  scopeOfCover: "",
-  gender: "",
-  fullNameOfInsuredPerson: "",
-  dateOfBirthOfInsuredPerson: "",
-  weeklySicknessBenefit: "",
-  weeklyInjuryBenefit: "",
-  lumpSumBenefit: "",
-  benefitPeriod: "",
-  waitingPeriod: "",
-  surgeryOrPreExistingConditions: "",
-  surgeryOrPreExistingConditionsDetails: "",
-  sportingActivities: "",
-  sportingActivitiesDetails: "",
-  weeklyCompensationExceedIncome: "",
-  weeklyCompensationExceedIncomeDetails: "",
-  // Step 4
+  // Step 3: Disclosure & Claims
   insuranceDeclined: undefined as "yes" | "no" | undefined,
   insuranceDeclinedDetails: "",
   renewalRefused: undefined as "yes" | "no" | undefined,
