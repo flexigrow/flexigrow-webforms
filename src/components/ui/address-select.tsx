@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Check, ChevronsUpDown, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { config } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -9,6 +10,12 @@ export interface AddressSuggestion {
   id: string;
   fullAddress: string;
   canonicalAddressId: string;
+  unit?: string;
+  street?: string;
+  suburb?: string;
+  state?: string;
+  postcode?: string;
+  country?: string;
 }
 
 export interface AddressSelectProps {
@@ -49,7 +56,7 @@ const AddressSelect = React.forwardRef<HTMLButtonElement, AddressSelectProps>(
 
       try {
         const response = await fetch(
-          `https://dev.flexigrowapi.com/api/address?keywords=${encodeURIComponent(
+          `${config.apiBaseUrl}/api/address?keywords=${encodeURIComponent(
             keywords
           )}&country=AU`,
           {
@@ -90,9 +97,42 @@ const AddressSelect = React.forwardRef<HTMLButtonElement, AddressSelectProps>(
       }, 300);
     };
 
-    const handleSelect = (suggestion: AddressSuggestion) => {
-      onChange?.(suggestion.fullAddress);
-      onSelect?.(suggestion);
+    const handleSelect = async (suggestion: AddressSuggestion) => {
+      // Fetch detailed address info using canonicalAddressId
+      try {
+        const response = await fetch(
+          `${config.apiBaseUrl}/api/address/${suggestion.canonicalAddressId}`,
+          {
+            method: "GET",
+            headers: {
+              "x-external-request": "true",
+              "x-signature": "TENoYn1lzjFpm94sIhLmVrm1gbGwdYn7ljiRtX3ep+8=",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.ok) {
+          const detailedAddress = await response.json();
+          // Merge detailed address with suggestion
+          const completeAddress = {
+            ...suggestion,
+            ...detailedAddress,
+          };
+          onChange?.(completeAddress.fullAddress);
+          onSelect?.(completeAddress);
+        } else {
+          // Fallback to just the suggestion if detail fetch fails
+          onChange?.(suggestion.fullAddress);
+          onSelect?.(suggestion);
+        }
+      } catch (error) {
+        console.error("Error fetching detailed address:", error);
+        // Fallback to just the suggestion if detail fetch fails
+        onChange?.(suggestion.fullAddress);
+        onSelect?.(suggestion);
+      }
+
       setOpen(false);
       setSearchValue("");
       setSelectedIndex(-1);

@@ -11,7 +11,7 @@ export enum Step {
 
 // Step-specific validation schemas
 export const step1Schema = z.object({
-  yourName: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required"),
   businessName: z.string().min(1, "Business name is required"),
   abn: z
     .string()
@@ -19,6 +19,12 @@ export const step1Schema = z.object({
     .regex(/^\d+$/, "ABN must be only digits")
     .length(11, "ABN must be exactly 11 digits"),
   address: z.string().min(5, "Address is required"),
+  unit: z.string().optional(),
+  street: z.string().optional(),
+  suburb: z.string().optional(),
+  state: z.string().optional(),
+  postcode: z.string().optional(),
+  country: z.string().optional(),
   website: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   phoneNumber: z

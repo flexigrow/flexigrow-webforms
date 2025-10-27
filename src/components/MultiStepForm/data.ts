@@ -33,6 +33,12 @@ export const generalLiabilityActivities = [
   },
 ];
 
+export enum EInsuranceType {
+  ALLIED_HEALTH_AND_NDIS = "allied_health_and_ndis",
+  CLEANERS = "cleaners",
+  GENERAL_BUSINESS = "general_business",
+}
+
 export const limitOfLiabilities = [
   { label: "$ 5,000,000", value: 5000000 },
   { label: "$ 10,000,000", value: 10000000 },
@@ -143,10 +149,16 @@ export const step4SideContent = [
 // Form default values
 export const formDefaultValues = {
   // Step 1
-  yourName: "",
+  name: "",
   businessName: "",
   abn: "",
   address: "",
+  unit: "",
+  street: "",
+  suburb: "",
+  state: "",
+  postcode: "",
+  country: "Australia",
   website: "",
   email: "",
   phoneNumber: "",

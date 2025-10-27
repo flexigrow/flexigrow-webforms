@@ -1,21 +1,23 @@
+import { Form } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
+import { config } from "@/lib/config";
+import { formDefaultValues } from "./data";
+import { MultiStepNavigation } from "./MultiStepNavigation";
+import {
+  Step,
+  stepSchemas,
+  unifiedSchema,
+  type UnifiedFormData,
+} from "./schemas";
 import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
 import { Step3 } from "./Step3";
 import { Step4 } from "./Step4";
 import { Step5 } from "./Step5";
-import { MultiStepNavigation } from "./MultiStepNavigation";
-import {
-  Step,
-  unifiedSchema,
-  stepSchemas,
-  type UnifiedFormData,
-} from "./schemas";
 import { StepIndicator } from "./StepIndicator";
-import { formDefaultValues } from "./data";
+import { transformFormDataToPayload } from "./transformFormData";
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
@@ -68,13 +70,20 @@ export function MultiStepForm() {
   // API submission function
   const submitToAPI = async (formData: UnifiedFormData) => {
     try {
-      const response = await fetch("/wp-json/flexigrow/v1/quote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const payload = transformFormDataToPayload(formData);
+
+      const response = await fetch(
+        `${config.apiBaseUrl}/api/client/insurance-registration`,
+        {
+          method: "POST",
+          headers: {
+            "x-external-request": "true",
+            "x-signature": "TENoYn1lzjFpm94sIhLmVrm1gbGwdYn7ljiRtX3ep+8=",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit form");
@@ -124,7 +133,7 @@ export function MultiStepForm() {
             {/* Step 5: Welcome/Success Page */}
             {currentStep === Step.CONFIRMATION && (
               <Step5
-                firstName={form.getValues("yourName")?.split(" ")[0] || "there"}
+                firstName={form.getValues("name")?.split(" ")[0] || "there"}
                 email={form.getValues("email") || "your email"}
               />
             )}

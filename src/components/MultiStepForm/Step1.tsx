@@ -19,7 +19,7 @@ export function Step1() {
       <StepHeading>Enter your contact details:</StepHeading>
 
       {/* Your details section */}
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 px-8 sm:px-10">
+      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 sm:px-10">
         <div className="col-span-12 xl:col-span-8">
           <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
             Your details
@@ -31,7 +31,7 @@ export function Step1() {
               {/* Your Name */}
               <FormField
                 control={form.control}
-                name="yourName"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -99,6 +99,18 @@ export function Step1() {
                         onChange={field.onChange}
                         onSelect={(address) => {
                           field.onChange(address.fullAddress);
+                          // Also populate the address component fields
+                          if (address.unit) form.setValue("unit", address.unit);
+                          if (address.street)
+                            form.setValue("street", address.street);
+                          if (address.suburb)
+                            form.setValue("suburb", address.suburb);
+                          if (address.state)
+                            form.setValue("state", address.state);
+                          if (address.postcode)
+                            form.setValue("postcode", address.postcode);
+                          if (address.country)
+                            form.setValue("country", address.country);
                         }}
                       />
                     </FormControl>

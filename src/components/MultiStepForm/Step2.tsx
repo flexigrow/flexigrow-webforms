@@ -31,7 +31,7 @@ export function Step2() {
     <div>
       <StepHeading>Enter your general liability details:</StepHeading>
 
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 px-8 sm:px-10">
+      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 sm:px-8 sm:px-10">
         <div className="col-span-12 xl:col-span-8">
           {/* Product Selection */}
           <div>
