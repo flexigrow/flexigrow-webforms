@@ -114,7 +114,7 @@ export function MultiStepForm() {
         </div>
       )}
 
-      <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
+      <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12">
         <div className="mx-auto">
           {/* Step Indicator */}
           <StepIndicator currentStep={currentStep} />

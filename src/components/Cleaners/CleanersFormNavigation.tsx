@@ -51,7 +51,7 @@ export function CleanersFormNavigation({
           <Button
             onClick={onPrevious}
             disabled={isSubmitting}
-            className="bg-black hover:border-white border-solid border border-white text-white font-semibold px-6 sm:px-12 lg:px-20 py-4 sm:py-6 text-sm sm:text-base rounded-full transition-colors flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-black hover:border-white hover:bg-[#2C2C2C] hover:border-transparent border-solid border border-white text-white hover:text-primary font-semibold px-6 sm:px-12 lg:px-20 py-4 sm:py-6 text-sm sm:text-base rounded-full transition-colors flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
             size="lg"
           >
             Previous

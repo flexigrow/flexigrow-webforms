@@ -95,7 +95,7 @@ export const step1SideContent = [
   },
   {
     icon: "",
-    heading: "Built for Allied Health",
+    heading: "Built for General Business",
     subheading:
       "Designed specifically to support care providers and support coordinators.",
   },

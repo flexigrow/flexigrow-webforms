@@ -20,7 +20,7 @@ import { StepIndicator } from "./StepIndicator";
 import { transformFormDataToPayload } from "./transformFormData";
 
 export function CleanersForm() {
-  const [currentStep, setCurrentStep] = useState(Step.PROFESSIONAL_INDEMNITY);
+  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Single form instance for all steps
@@ -108,13 +108,13 @@ export function CleanersForm() {
             <span className="text-[#C6FF00]">few minutes.</span>
           </h1>
           <p className="text-lg sm:text-xl font-normal leading-[100%] text-white/80">
-            We just need a few quick details to tailor insurance coverage to
-            your cleaning business needs.
+            We just need a few quick details to tailor Flexigrow to your
+            business needs.
           </p>
         </div>
       )}
 
-      <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
+      <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12">
         <div className="mx-auto">
           {/* Step Indicator */}
           <StepIndicator currentStep={currentStep} />

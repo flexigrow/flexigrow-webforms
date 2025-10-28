@@ -134,54 +134,54 @@ export const step1SideContent = [
   },
   {
     icon: "",
-    heading: "Built for cleaning businesses",
+    heading: "Built for Cleaners",
     subheading:
-      "Designed specifically to support residential and commercial cleaning services.",
+      "Designed specifically to support care providers and support coordinators.",
   },
 ];
 
 export const step2SideContent = [
   {
     icon: "",
-    heading: "Comprehensive coverage",
+    heading: "Simplify your financial workflow",
     subheading:
-      "Protect your cleaning business with public liability and professional indemnity insurance.",
+      "Automate invoicing and payment reminders to get paid faster with less effort.",
   },
   {
     icon: "",
-    heading: "Flexible options",
+    heading: "Cut down on paper clutter",
     subheading:
-      "Choose coverage limits that match your business size and cleaning services.",
+      "Easily scan and upload receipts for smarter, hassle-free expense tracking.",
   },
 ];
 
 export const step3SideContent = [
   {
     icon: "",
-    heading: "Personal accident cover",
+    heading: "Secure and NDIS-Ready",
     subheading:
-      "Optional coverage to protect you and your team while on the job.",
+      "Use built-in NDIS templates and keep data protected with industry-grade security.",
   },
   {
     icon: "",
-    heading: "Customizable benefits",
+    heading: "Smart financial tracking",
     subheading:
-      "Select benefit periods and waiting periods that work for your business.",
+      "Monitor your income and expenses with quick and easy reports based on -real-time data.",
   },
 ];
 
 export const step4SideContent = [
   {
     icon: "",
-    heading: "Fast approval process",
+    heading: "Access anytime, anywhere",
     subheading:
-      "Get your insurance certificate quickly after completing the application.",
+      "Manage your finances on desktop or mobile, wherever your work takes you.",
   },
   {
     icon: "",
-    heading: "Expert support",
+    heading: "Flexibility as you grow",
     subheading:
-      "Our team is here to help you with any questions about your coverage.",
+      "For solo practitioners to expanding teams, Flexigrow scales with you.",
   },
 ];
 
