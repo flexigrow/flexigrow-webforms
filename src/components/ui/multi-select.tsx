@@ -27,10 +27,18 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
       disabled,
       ...props
     },
-    ref
+    forwardedRef
   ) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [searchTerm, setSearchTerm] = React.useState("");
+    const [openUpward, setOpenUpward] = React.useState(false);
+    const containerRef = React.useRef<HTMLDivElement>(null);
+
+    // Merge forwarded ref with local ref
+    React.useImperativeHandle(
+      forwardedRef,
+      () => containerRef.current as HTMLDivElement
+    );
 
     const filteredOptions = options.filter((option) =>
       option.label.toLowerCase().includes(searchTerm.toLowerCase())
@@ -39,6 +47,19 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
     const selectedOptions = options.filter((option) =>
       value.includes(option.value)
     );
+
+    // Check if dropdown should open upward based on available space
+    React.useEffect(() => {
+      if (isOpen && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const dropdownHeight = 400; // Approximate height of dropdown (max-h-80 + search input)
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+
+        // Open upward if there's not enough space below but more space above
+        setOpenUpward(spaceBelow < dropdownHeight && spaceAbove > spaceBelow);
+      }
+    }, [isOpen]);
 
     const handleToggle = (optionValue: string) => {
       if (disabled) return;
@@ -61,7 +82,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
     };
 
     return (
-      <div ref={ref} className={cn("relative", className)} {...props}>
+      <div ref={containerRef} className={cn("relative", className)} {...props}>
         {/* Main input field */}
         <div
           className={cn(
@@ -144,9 +165,14 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
         {/* Dropdown */}
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-[#1a1a1a] border border-gray-700 rounded-2xl shadow-lg max-h-60 overflow-hidden">
+          <div
+            className={cn(
+              "absolute left-0 right-0 z-50 bg-[#1a1a1a] border border-gray-700 shadow-lg overflow-hidden",
+              openUpward ? "bottom-full mb-1" : "top-full mt-1"
+            )}
+          >
             {/* Search input */}
-            <div className="p-3 border-b border-gray-700">
+            <div className="p-3 border-b border-gray-700 bg-[#1a1a1a]">
               <input
                 type="text"
                 placeholder="Search options..."
@@ -158,7 +184,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             </div>
 
             {/* Options list */}
-            <div className="max-h-48 overflow-y-auto">
+            <div className="max-h-80 overflow-y-auto bg-[#1a1a1a]">
               {filteredOptions.length === 0 ? (
                 <div className="px-4 py-3 text-gray-400 text-sm">
                   No options found
@@ -172,7 +198,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                   >
                     <div
                       className={cn(
-                        "flex items-center justify-center w-4 h-4 border-2 rounded",
+                        "flex items-center justify-center w-4 h-4 border-2 rounded flex-shrink-0",
                         value.includes(option.value)
                           ? "bg-blue-500 border-blue-500"
                           : "border-gray-500"
@@ -182,7 +208,9 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                         <Check className="h-3 w-3 text-white" />
                       )}
                     </div>
-                    <span className="text-white text-sm">{option.label}</span>
+                    <span className="text-white text-sm flex-1">
+                      {option.label}
+                    </span>
                   </div>
                 ))
               )}
