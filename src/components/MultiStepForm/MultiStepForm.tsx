@@ -20,7 +20,7 @@ import { StepIndicator } from "./StepIndicator";
 import { transformFormDataToPayload } from "./transformFormData";
 
 export function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState(Step.CONFIRMATION);
+  const [currentStep, setCurrentStep] = useState(Step.YOUR_DETAILS);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Single form instance for all steps
