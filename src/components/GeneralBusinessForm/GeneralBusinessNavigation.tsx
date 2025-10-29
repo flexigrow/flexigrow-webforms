@@ -32,13 +32,15 @@ export function GeneralBusinessNavigation({
       {/* Links - centered on mobile, left-aligned on desktop */}
       <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm justify-center sm:justify-start">
         <a
-          href="#"
+          target="_blank"
+          href="https://flexigrow.com/wp-content/uploads/2025/09/EWG-Terms-of-Engagement-V3.0-September-2025.pdf"
           className="text-gray-400 hover:text-white transition-colors"
         >
           Terms of Service
         </a>
         <a
-          href="#"
+          target="_blank"
+          href="https://flexigrow.com/wp-content/uploads/2025/09/EWG-Complaints-Policy-V1.0-September-2025.pdf"
           className="text-gray-400 hover:text-white transition-colors"
         >
           Privacy Policy

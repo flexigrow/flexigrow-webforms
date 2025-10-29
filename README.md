@@ -29,6 +29,25 @@ A modern, multi-step insurance quote form built as a web component for easy inte
 yarn install
 ```
 
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Development Environment
+VITE_API_BASE_URL=https://dev.flexigrowapi.com
+VITE_API_SIGNATURE=your-dev-signature-key-here
+
+# Production Environment
+VITE_API_PROD_BASE_URL=https://uat.flexigrowapi.com
+VITE_API_PROD_SIGNATURE=your-prod-signature-key-here
+```
+
+**Note:** The application automatically selects the appropriate API URL and signature based on the environment:
+
+- Development mode (`yarn dev`) uses `VITE_API_BASE_URL` and `VITE_API_SIGNATURE`
+- Production build (`yarn build`) uses `VITE_API_PROD_BASE_URL` and `VITE_API_PROD_SIGNATURE`
+
 ### Development Server
 
 ```bash

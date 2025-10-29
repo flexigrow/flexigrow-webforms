@@ -80,7 +80,7 @@ export function GeneralBusinessForm() {
           method: "POST",
           headers: {
             "x-external-request": "true",
-            "x-signature": "TENoYn1lzjFpm94sIhLmVrm1gbGwdYn7ljiRtX3ep+8=",
+            "x-signature": config.apiSignature,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
