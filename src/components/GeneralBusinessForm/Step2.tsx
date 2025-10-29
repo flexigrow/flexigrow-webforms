@@ -36,7 +36,7 @@ export function Step2() {
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="industry name"
+                        placeholder="Industry name"
                         className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
                         {...field}
                       />

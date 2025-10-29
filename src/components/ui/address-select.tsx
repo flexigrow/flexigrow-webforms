@@ -98,14 +98,16 @@ const AddressSelect = React.forwardRef<HTMLButtonElement, AddressSelectProps>(
     };
 
     const handleSelect = async (suggestion: AddressSuggestion) => {
-      // Fetch detailed address info using canonicalAddressId
+      // Fetch detailed address info using id
       try {
         const response = await fetch(
-          `${config.apiBaseUrl}/api/address/${suggestion.canonicalAddressId}`,
+          `${config.apiBaseUrl}/api/address-details/?id=${suggestion.id}&country=AU`,
           {
             method: "GET",
             headers: {
+              accept: "application/json, text/plain, */*",
               "x-external-request": "true",
+              "x-internal-request": "true",
               "x-signature": config.apiSignature,
               "Content-Type": "application/json",
             },
