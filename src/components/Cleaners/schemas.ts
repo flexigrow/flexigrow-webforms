@@ -53,6 +53,7 @@ export const step3Schema = z.object({
   group2Activities: z.array(z.string()).optional(),
   group3Activities: z.array(z.string()).optional(),
   group4Activities: z.array(z.string()).optional(),
+  group4ActivitiesOtherDetails: z.string().optional(),
   annualTurnover: z.string().min(1, "Annual turnover is required"),
   yearsInBusiness: z.string().min(1, "Years in business is required"),
   subContractorsUsed: z.string().min(1, "Please answer this question"),

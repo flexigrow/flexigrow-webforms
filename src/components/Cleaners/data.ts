@@ -217,6 +217,7 @@ export const formDefaultValues = {
   group2Activities: [],
   group3Activities: [],
   group4Activities: [],
+  group4ActivitiesOtherDetails: "",
   annualTurnover: "",
   yearsInBusiness: "",
   subContractorsUsed: "",

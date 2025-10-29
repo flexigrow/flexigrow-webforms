@@ -38,6 +38,12 @@ export function Step3() {
     control: form.control,
     name: "labourHireUsed",
   });
+  const group4Activities = useWatch({
+    control: form.control,
+    name: "group4Activities",
+  });
+  const showGroup4OtherDetails =
+    group4Activities?.includes("Other (free text)") || false;
 
   return (
     <div>
@@ -173,6 +179,29 @@ export function Step3() {
                       </FormItem>
                     )}
                   />
+
+                  {/* Group 4 Other Details - Show only if "Other (free text)" is selected */}
+                  {showGroup4OtherDetails && (
+                    <>
+                      <div className="hidden md:block" />
+                      <FormField
+                        control={form.control}
+                        name="group4ActivitiesOtherDetails"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                placeholder="If Other, please specify"
+                                className="h-16 bg-[#1a1a1a] border-0 text-white placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-2xl px-6 text-base"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
             </div>
