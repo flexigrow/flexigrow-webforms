@@ -11,6 +11,7 @@ function flexigrow_enqueue_webforms() {
         'multi-step-form' => 'MultiStepForm.js',
         'general-business-form' => 'GeneralBusinessForm.js',
         'cleaners-form' => 'Cleaners.js',
+        'get-in-touch-form' => 'GetInTouchForm.js',
     ];
 
     foreach ($components as $handle => $filename) {
@@ -30,7 +31,7 @@ add_action('wp_enqueue_scripts', 'flexigrow_enqueue_webforms');
 
 function flexigrow_add_type_module($tag, $handle, $src) {
     // Add type="module" to our web components
-    $module_handles = ['multi-step-form', 'general-business-form', 'cleaners-form'];
+    $module_handles = ['multi-step-form', 'general-business-form', 'cleaners-form', 'get-in-touch-form'];
     if (in_array($handle, $module_handles)) {
         $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
     }
@@ -57,6 +58,13 @@ add_action('rest_api_init', function () {
     register_rest_route('flexigrow/v1', '/cleaners-quote', array(
         'methods' => 'POST',
         'callback' => 'flexigrow_handle_cleaners_form',
+        'permission_callback' => '__return_true'
+    ));
+
+    // Get In Touch endpoint (single-step contact form with attachments)
+    register_rest_route('flexigrow/v1', '/get-in-touch', array(
+        'methods' => 'POST',
+        'callback' => 'flexigrow_handle_get_in_touch_form',
         'permission_callback' => '__return_true'
     ));
 });
@@ -286,6 +294,93 @@ function flexigrow_handle_cleaners_form($request) {
     }
 }
 
+function flexigrow_handle_get_in_touch_form($request) {
+    // Support multipart/form-data submissions with file uploads
+    $params = $request->get_body_params();
+    $files = $request->get_file_params();
+
+    $email = sanitize_email($params['email'] ?? '');
+    $first_name = sanitize_text_field($params['firstName'] ?? '');
+    $last_name = sanitize_text_field($params['lastName'] ?? '');
+    $phone = sanitize_text_field($params['phone'] ?? '');
+    $preferred = sanitize_text_field($params['preferredContactMethod'] ?? '');
+    $existing = sanitize_text_field($params['existingClient'] ?? '');
+    $product_types = sanitize_text_field($params['productTypes'] ?? '');
+    $inquiry_type = sanitize_text_field($params['inquiryType'] ?? '');
+    $message = sanitize_textarea_field($params['message'] ?? '');
+
+    if (empty($email) || empty($first_name) || empty($last_name) || empty($phone)) {
+        return new WP_Error('missing_fields', 'Please fill in all required fields', array('status' => 400));
+    }
+    if (!is_email($email)) {
+        return new WP_Error('invalid_email', 'Please enter a valid email address', array('status' => 400));
+    }
+
+    $to = get_option('admin_email');
+    $subject = 'New Get In Touch submission - ' . $first_name . ' ' . $last_name;
+    $email_body = sprintf(
+        "Get In Touch Submission\n\n" .
+        "Name: %s %s\n" .
+        "Email: %s\n" .
+        "Phone: %s\n" .
+        "Preferred Contact: %s\n" .
+        "Existing Client: %s\n" .
+        "Product Types: %s\n" .
+        "Inquiry Type: %s\n\n" .
+        "Message:\n%s\n",
+        $first_name,
+        $last_name,
+        $email,
+        $phone,
+        $preferred ?: 'N/A',
+        $existing ?: 'N/A',
+        $product_types ?: 'N/A',
+        $inquiry_type ?: 'N/A',
+        $message ?: 'N/A'
+    );
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'Reply-To: ' . $email,
+    );
+
+    // Handle attachments if provided
+    $attachments = array();
+    if (!empty($files['documents'])) {
+        $docs = $files['documents'];
+        // documents may be single or multiple
+        $file_count = is_array($docs['name']) ? count($docs['name']) : 1;
+        for ($i = 0; $i < $file_count; $i++) {
+            $file_array = array(
+                'name' => is_array($docs['name']) ? $docs['name'][$i] : $docs['name'],
+                'type' => is_array($docs['type']) ? $docs['type'][$i] : $docs['type'],
+                'tmp_name' => is_array($docs['tmp_name']) ? $docs['tmp_name'][$i] : $docs['tmp_name'],
+                'error' => is_array($docs['error']) ? $docs['error'][$i] : $docs['error'],
+                'size' => is_array($docs['size']) ? $docs['size'][$i] : $docs['size'],
+            );
+
+            if ($file_array['error'] === UPLOAD_ERR_OK) {
+                $overrides = array('test_form' => false);
+                $uploaded = wp_handle_upload($file_array, $overrides);
+                if (!isset($uploaded['error']) && isset($uploaded['file'])) {
+                    $attachments[] = $uploaded['file'];
+                }
+            }
+        }
+    }
+
+    $sent = wp_mail($to, $subject, $email_body, $headers, $attachments);
+
+    if ($sent) {
+        return new WP_REST_Response(array(
+            'success' => true,
+            'message' => 'Thank you! Your message has been sent.',
+        ), 200);
+    }
+
+    return new WP_Error('email_failed', 'Failed to submit your request. Please try again.', array('status' => 500));
+}
+
 // Shortcode for multi-step form
 function flexigrow_multistep_form_shortcode($atts) {
     wp_enqueue_script('multi-step-form');
@@ -309,4 +404,11 @@ function flexigrow_cleaners_form_shortcode($atts) {
     return '<cleaners-form></cleaners-form>';
 }
 add_shortcode('cleaners_quote_form', 'flexigrow_cleaners_form_shortcode');
+
+// Shortcode for Get In Touch form
+function flexigrow_get_in_touch_form_shortcode($atts) {
+    wp_enqueue_script('get-in-touch-form');
+    return '<get-in-touch-form></get-in-touch-form>';
+}
+add_shortcode('get_in_touch_form', 'flexigrow_get_in_touch_form_shortcode');
 
