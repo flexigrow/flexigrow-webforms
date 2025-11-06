@@ -1,4 +1,5 @@
 import { useFormContext, useWatch } from "react-hook-form";
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,6 +32,35 @@ export function Step3() {
   });
   const hasPersonalAccident =
     productSelection?.includes("personal-accident") ?? false;
+
+  // Clear errors for personal accident fields when personal-accident is deselected
+  useEffect(() => {
+    if (!hasPersonalAccident) {
+      const personalAccidentFields: (keyof UnifiedFormData)[] = [
+        "typeOfCover",
+        "scopeOfCover",
+        "gender",
+        "fullNameOfInsuredPerson",
+        "dateOfBirthOfInsuredPerson",
+        "weeklySicknessBenefit",
+        "weeklyInjuryBenefit",
+        "lumpSumBenefit",
+        "benefitPeriod",
+        "waitingPeriod",
+        "surgeryOrPreExistingConditions",
+        "surgeryOrPreExistingConditionsDetails",
+        "sportingActivities",
+        "sportingActivitiesDetails",
+        "weeklyCompensationExceedIncome",
+        "weeklyCompensationExceedIncomeDetails",
+      ];
+      personalAccidentFields.forEach((field) => {
+        form.clearErrors(field);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasPersonalAccident]);
+
   const surgeryOrPreExistingConditions = useWatch({
     control: form.control,
     name: "surgeryOrPreExistingConditions",

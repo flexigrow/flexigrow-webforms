@@ -95,9 +95,8 @@ export const step1SideContent = [
   },
   {
     icon: "",
-    heading: "Built for General Business",
-    subheading:
-      "Designed specifically to support care providers and support coordinators.",
+    heading: "Built for Business",
+    subheading: "Designed by business people for business people.",
   },
 ];
 

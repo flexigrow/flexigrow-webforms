@@ -52,52 +52,137 @@ export function MultiStepForm() {
       currentStepSchema.shape
     ) as (keyof UnifiedFormData)[];
 
-    // For Step 3, conditionally exclude Individual Accident & Sickness fields
-    // if personal-accident is not selected
+    // For Step 3, conditionally handle Individual Accident & Sickness fields
+    // based on whether personal-accident is selected
     if (currentStep === Step.PROFESSIONAL_INDEMNITY) {
       const productSelection = form.getValues("productSelection");
       const hasPersonalAccident =
         productSelection?.includes("personal-accident") ?? false;
 
+      const personalAccidentFields: (keyof UnifiedFormData)[] = [
+        "typeOfCover",
+        "scopeOfCover",
+        "gender",
+        "fullNameOfInsuredPerson",
+        "dateOfBirthOfInsuredPerson",
+        "weeklySicknessBenefit",
+        "weeklyInjuryBenefit",
+        "lumpSumBenefit",
+        "benefitPeriod",
+        "waitingPeriod",
+        "surgeryOrPreExistingConditions",
+        "surgeryOrPreExistingConditionsDetails",
+        "sportingActivities",
+        "sportingActivitiesDetails",
+        "weeklyCompensationExceedIncome",
+        "weeklyCompensationExceedIncomeDetails",
+      ];
+
       if (!hasPersonalAccident) {
         // Exclude Individual Accident & Sickness fields from validation
-        const personalAccidentFields: (keyof UnifiedFormData)[] = [
-          "typeOfCover",
-          "scopeOfCover",
-          "gender",
-          "fullNameOfInsuredPerson",
-          "dateOfBirthOfInsuredPerson",
-          "weeklySicknessBenefit",
-          "weeklyInjuryBenefit",
-          "lumpSumBenefit",
-          "benefitPeriod",
-          "waitingPeriod",
-          "surgeryOrPreExistingConditions",
-          "surgeryOrPreExistingConditionsDetails",
-          "sportingActivities",
-          "sportingActivitiesDetails",
-          "weeklyCompensationExceedIncome",
-          "weeklyCompensationExceedIncomeDetails",
-        ];
         fieldsToValidate = fieldsToValidate.filter(
           (field) => !personalAccidentFields.includes(field)
         );
-      }
-    }
+      } else {
+        // Include all fields, but we need to manually validate personal accident fields
+        // since they're optional in the schema but required when personal-accident is selected
+        // First validate the base fields
+        const baseFields = fieldsToValidate.filter(
+          (field) => !personalAccidentFields.includes(field)
+        );
+        const baseIsValid = await form.trigger(baseFields);
 
-    // Validate only the relevant fields
-    const isValid = await form.trigger(fieldsToValidate);
+        if (!baseIsValid) {
+          return; // Stop here if base fields are invalid
+        }
 
-    if (isValid) {
-      if (currentStep === Step.DISCLOSURE_CLAIMS) {
-        // Submit all form data to API
-        setIsSubmitting(true);
+        // Now manually validate personal accident fields
         const formData = form.getValues();
-        await submitToAPI(formData);
-        setIsSubmitting(false);
+        let hasErrors = false;
+
+        // Required fields validation
+        const requiredFields: Array<{
+          field: keyof UnifiedFormData;
+          message: string;
+        }> = [
+          { field: "typeOfCover", message: "Please select type of cover" },
+          { field: "scopeOfCover", message: "Please select scope of cover" },
+          { field: "gender", message: "Please select gender" },
+          {
+            field: "fullNameOfInsuredPerson",
+            message: "Full name is required",
+          },
+          {
+            field: "dateOfBirthOfInsuredPerson",
+            message: "Date of birth is required",
+          },
+          { field: "benefitPeriod", message: "Please select benefit period" },
+          { field: "waitingPeriod", message: "Please select waiting period" },
+          {
+            field: "surgeryOrPreExistingConditions",
+            message: "Please answer this question",
+          },
+          {
+            field: "sportingActivities",
+            message: "Please answer this question",
+          },
+          {
+            field: "weeklyCompensationExceedIncome",
+            message: "Please answer this question",
+          },
+        ];
+
+        for (const { field, message } of requiredFields) {
+          const value = formData[field];
+          if (!value || (typeof value === "string" && value.trim() === "")) {
+            form.setError(field, { type: "manual", message });
+            hasErrors = true;
+          } else {
+            form.clearErrors(field);
+          }
+        }
+
+        // Validate fullNameOfInsuredPerson length
+        const fullName = formData.fullNameOfInsuredPerson;
+        if (
+          fullName &&
+          typeof fullName === "string" &&
+          fullName.trim().length < 2
+        ) {
+          form.setError("fullNameOfInsuredPerson", {
+            type: "manual",
+            message: "Full name must be at least 2 characters",
+          });
+          hasErrors = true;
+        }
+
+        if (hasErrors) {
+          return; // Stop if there are validation errors
+        }
       }
-      setCurrentStep(currentStep + 1);
     }
+
+    // Validate only the relevant fields (if we haven't already validated above)
+    let isValid = true;
+    if (
+      currentStep !== Step.PROFESSIONAL_INDEMNITY ||
+      !form.getValues("productSelection")?.includes("personal-accident")
+    ) {
+      isValid = await form.trigger(fieldsToValidate);
+      if (!isValid) {
+        return;
+      }
+    }
+
+    // If we reach here, validation passed
+    if (currentStep === Step.DISCLOSURE_CLAIMS) {
+      // Submit all form data to API
+      setIsSubmitting(true);
+      const formData = form.getValues();
+      await submitToAPI(formData);
+      setIsSubmitting(false);
+    }
+    setCurrentStep(currentStep + 1);
   };
 
   const handlePrevious = () => {
