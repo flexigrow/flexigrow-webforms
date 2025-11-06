@@ -13,6 +13,17 @@ export function transformFormDataToPayload(formData: UnifiedFormData) {
     "personal-accident": "Personal Accident",
   };
 
+  // Handle array of product selections - join multiple selections or use first one
+  const productSelectionArray = Array.isArray(formData.productSelection)
+    ? formData.productSelection
+    : [formData.productSelection];
+  const productType = productSelectionArray
+    .map(
+      (selection) =>
+        productTypeMap[selection as keyof typeof productTypeMap] || selection
+    )
+    .join(", ");
+
   return {
     // Top-level fields
     name: formData.name,
@@ -33,10 +44,7 @@ export function transformFormDataToPayload(formData: UnifiedFormData) {
 
     // Data form object with all insurance-related fields
     dataForm: {
-      productType:
-        productTypeMap[
-          formData.productSelection as keyof typeof productTypeMap
-        ] || formData.productSelection,
+      productType: productType || productSelectionArray[0] || "",
       activities: formData.activities,
       dispensePrescribeDrugs: formData.prescribeDrugs,
       prescribeDrugsDetails: formData.prescribeDrugsDetails,

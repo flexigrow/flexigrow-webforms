@@ -163,7 +163,12 @@ export const formDefaultValues = {
   email: "",
   phoneNumber: "",
   // Step 2
-  productSelection: "public-liability" as const,
+  productSelection: (() => {
+    const arr: ("public-liability" | "personal-accident")[] = [
+      "public-liability",
+    ];
+    return arr;
+  })(),
   activities: [],
   prescribeDrugs: "",
   prescribeDrugsDetails: "",

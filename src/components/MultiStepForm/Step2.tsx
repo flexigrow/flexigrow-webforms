@@ -49,16 +49,50 @@ export function Step2() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <Radio
                           id="public-liability"
+                          type="checkbox"
                           value="public-liability"
-                          checked={field.value === "public-liability"}
-                          onChange={(e) => field.onChange(e.target.value)}
+                          checked={
+                            field.value?.includes("public-liability") ?? false
+                          }
+                          onChange={(e) => {
+                            const currentValue = field.value || [];
+                            if (e.target.checked) {
+                              field.onChange([
+                                ...currentValue,
+                                "public-liability",
+                              ]);
+                            } else {
+                              field.onChange(
+                                currentValue.filter(
+                                  (v) => v !== "public-liability"
+                                )
+                              );
+                            }
+                          }}
                           label="Public Liability & Professional Indemnity (Required)"
                         />
                         <Radio
                           id="personal-accident"
+                          type="checkbox"
                           value="personal-accident"
-                          checked={field.value === "personal-accident"}
-                          onChange={(e) => field.onChange(e.target.value)}
+                          checked={
+                            field.value?.includes("personal-accident") ?? false
+                          }
+                          onChange={(e) => {
+                            const currentValue = field.value || [];
+                            if (e.target.checked) {
+                              field.onChange([
+                                ...currentValue,
+                                "personal-accident",
+                              ]);
+                            } else {
+                              field.onChange(
+                                currentValue.filter(
+                                  (v) => v !== "personal-accident"
+                                )
+                              );
+                            }
+                          }}
                           label="Personal Accident (Optional)"
                         />
                       </div>

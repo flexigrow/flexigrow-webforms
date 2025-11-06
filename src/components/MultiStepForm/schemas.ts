@@ -34,7 +34,9 @@ export const step1Schema = z.object({
 });
 
 export const step2Schema = z.object({
-  productSelection: z.enum(["public-liability", "personal-accident"]),
+  productSelection: z
+    .array(z.enum(["public-liability", "personal-accident"]))
+    .min(1, "Please select at least one product"),
   activities: z.array(z.string()).min(1, "Please select at least one activity"),
   prescribeDrugs: z.string().min(1, "Please answer this question"),
   prescribeDrugsDetails: z.string().optional(),
@@ -47,25 +49,22 @@ export const step2Schema = z.object({
 
 export const step3Schema = z.object({
   limitOfIndemnity: z.string().min(1, "Please select limit of indemnity"),
-  typeOfCover: z.string().min(1, "Please select type of cover"),
-  scopeOfCover: z.string().min(1, "Please select scope of cover"),
-  gender: z.string().min(1, "Please select gender"),
-  fullNameOfInsuredPerson: z.string().min(2, "Full name is required"),
-  dateOfBirthOfInsuredPerson: z.string().min(1, "Date of birth is required"),
+  // Individual Accident & Sickness fields - optional (only required if personal-accident is selected)
+  typeOfCover: z.string().optional(),
+  scopeOfCover: z.string().optional(),
+  gender: z.string().optional(),
+  fullNameOfInsuredPerson: z.string().optional(),
+  dateOfBirthOfInsuredPerson: z.string().optional(),
   weeklySicknessBenefit: z.string().optional(),
   weeklyInjuryBenefit: z.string().optional(),
   lumpSumBenefit: z.string().optional(),
-  benefitPeriod: z.string().min(1, "Please select benefit period"),
-  waitingPeriod: z.string().min(1, "Please select waiting period"),
-  surgeryOrPreExistingConditions: z
-    .string()
-    .min(1, "Please answer this question"),
+  benefitPeriod: z.string().optional(),
+  waitingPeriod: z.string().optional(),
+  surgeryOrPreExistingConditions: z.string().optional(),
   surgeryOrPreExistingConditionsDetails: z.string().optional(),
-  sportingActivities: z.string().min(1, "Please answer this question"),
+  sportingActivities: z.string().optional(),
   sportingActivitiesDetails: z.string().optional(),
-  weeklyCompensationExceedIncome: z
-    .string()
-    .min(1, "Please answer this question"),
+  weeklyCompensationExceedIncome: z.string().optional(),
   weeklyCompensationExceedIncomeDetails: z.string().optional(),
 });
 

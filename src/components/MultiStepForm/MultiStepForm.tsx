@@ -27,7 +27,7 @@ export function MultiStepForm() {
   const form = useForm<UnifiedFormData>({
     resolver: zodResolver(unifiedSchema),
     mode: "onTouched", // Only validate after user interacts with field
-    defaultValues: formDefaultValues,
+    defaultValues: formDefaultValues as Partial<UnifiedFormData>,
   });
 
   // Global navigation handlers
@@ -47,10 +47,46 @@ export function MultiStepForm() {
       return;
     }
 
-    // Validate only the current step's fields using the schema
-    const isValid = await form.trigger(
-      Object.keys(currentStepSchema.shape) as (keyof UnifiedFormData)[]
-    );
+    // Get fields to validate
+    let fieldsToValidate = Object.keys(
+      currentStepSchema.shape
+    ) as (keyof UnifiedFormData)[];
+
+    // For Step 3, conditionally exclude Individual Accident & Sickness fields
+    // if personal-accident is not selected
+    if (currentStep === Step.PROFESSIONAL_INDEMNITY) {
+      const productSelection = form.getValues("productSelection");
+      const hasPersonalAccident =
+        productSelection?.includes("personal-accident") ?? false;
+
+      if (!hasPersonalAccident) {
+        // Exclude Individual Accident & Sickness fields from validation
+        const personalAccidentFields: (keyof UnifiedFormData)[] = [
+          "typeOfCover",
+          "scopeOfCover",
+          "gender",
+          "fullNameOfInsuredPerson",
+          "dateOfBirthOfInsuredPerson",
+          "weeklySicknessBenefit",
+          "weeklyInjuryBenefit",
+          "lumpSumBenefit",
+          "benefitPeriod",
+          "waitingPeriod",
+          "surgeryOrPreExistingConditions",
+          "surgeryOrPreExistingConditionsDetails",
+          "sportingActivities",
+          "sportingActivitiesDetails",
+          "weeklyCompensationExceedIncome",
+          "weeklyCompensationExceedIncomeDetails",
+        ];
+        fieldsToValidate = fieldsToValidate.filter(
+          (field) => !personalAccidentFields.includes(field)
+        );
+      }
+    }
+
+    // Validate only the relevant fields
+    const isValid = await form.trigger(fieldsToValidate);
 
     if (isValid) {
       if (currentStep === Step.DISCLOSURE_CLAIMS) {
