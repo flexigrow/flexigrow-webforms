@@ -185,7 +185,7 @@ export function CleanersForm() {
 
             {/* Side Content - Desktop: right side, Mobile: after navigation */}
             {sideContentItems && (
-              <div className="col-span-12 xl:col-span-4 order-last xl:order-none mt-6 sm:mt-12 xl:mt-0">
+              <div className="col-span-12 xl:col-span-4 order-last xl:order-none mt-12 xl:mt-0">
                 <SideContent items={sideContentItems} />
               </div>
             )}

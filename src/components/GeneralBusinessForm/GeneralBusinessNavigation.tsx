@@ -28,7 +28,7 @@ export function GeneralBusinessNavigation({
   const buttonText = isSubmitStep ? "Submit" : "Next";
 
   return (
-    <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between">
       {/* Links - centered on mobile, left-aligned on desktop */}
       <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm justify-center sm:justify-start">
         <a
