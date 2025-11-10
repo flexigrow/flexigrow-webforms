@@ -8,9 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
-import { step4SideContent } from "./data";
 import { StepHeading } from "./StepHeading";
-import { SideContent } from "./SideContent";
 
 export function Step4() {
   const form = useFormContext<UnifiedFormData>();
@@ -49,8 +47,8 @@ export function Step4() {
         Enter your disclosure and claims details:
       </StepHeading>
 
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 sm:px-8 sm:px-10">
-        <div className="col-span-12 xl:col-span-8">
+      <div className="sm:px-10">
+        <div>
           <div className="mt-12">
             {/* Your disclosure details */}
             <div className="mb-12">
@@ -483,10 +481,6 @@ export function Step4() {
               />
             </div>
           </div>
-        </div>
-
-        <div className="col-span-12 xl:col-span-4">
-          <SideContent items={step4SideContent} />
         </div>
       </div>
     </div>

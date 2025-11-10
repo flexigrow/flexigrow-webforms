@@ -8,9 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
-import { step1SideContent } from "./data";
 import { StepHeading } from "./StepHeading";
-import { SideContent } from "./SideContent";
 
 export function Step1() {
   const form = useFormContext<UnifiedFormData>();
@@ -19,8 +17,8 @@ export function Step1() {
       <StepHeading>Enter your contact details:</StepHeading>
 
       {/* Your details section */}
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 sm:px-10">
-        <div className="col-span-12 xl:col-span-8">
+      <div className="sm:px-10">
+        <div>
           <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
             Your details
           </h2>
@@ -179,10 +177,6 @@ export function Step1() {
               />
             </div>
           </div>
-        </div>
-
-        <div className="col-span-12 xl:col-span-4">
-          <SideContent items={step1SideContent} />
         </div>
       </div>
     </div>

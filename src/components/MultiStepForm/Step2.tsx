@@ -11,10 +11,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { type UnifiedFormData } from "./schemas";
-import { generalLiabilityActivities, step2SideContent } from "./data";
+import { generalLiabilityActivities } from "./data";
 import { NumericFormat } from "react-number-format";
 import { StepHeading } from "./StepHeading";
-import { SideContent } from "./SideContent";
 
 export function Step2() {
   const form = useFormContext<UnifiedFormData>();
@@ -31,8 +30,8 @@ export function Step2() {
     <div>
       <StepHeading>Enter your general liability details:</StepHeading>
 
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 sm:px-8 sm:px-10">
-        <div className="col-span-12 xl:col-span-8">
+      <div className="sm:px-10">
+        <div>
           {/* Product Selection */}
           <div>
             <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
@@ -275,10 +274,6 @@ export function Step2() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="col-span-12 xl:col-span-4">
-          <SideContent items={step2SideContent} />
         </div>
       </div>
     </div>

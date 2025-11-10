@@ -3,7 +3,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { config } from "@/lib/config";
-import { formDefaultValues } from "./data";
+import {
+  formDefaultValues,
+  step1SideContent,
+  step2SideContent,
+  step4SideContent,
+} from "./data";
 import { GeneralBusinessNavigation } from "./GeneralBusinessNavigation";
 import {
   Step,
@@ -16,6 +21,7 @@ import { Step2 } from "./Step2";
 import { Step4 } from "./Step4";
 import { Step5 } from "./Step5";
 import { StepIndicator } from "./StepIndicator";
+import { SideContent } from "./SideContent";
 import { transformFormDataToPayload } from "./transformFormData";
 
 export function GeneralBusinessForm() {
@@ -97,6 +103,22 @@ export function GeneralBusinessForm() {
     }
   };
 
+  // Get side content based on current step
+  const getSideContent = () => {
+    switch (currentStep) {
+      case Step.YOUR_DETAILS:
+        return step1SideContent;
+      case Step.GENERAL_LIABILITY:
+        return step2SideContent;
+      case Step.DISCLOSURE_CLAIMS:
+        return step4SideContent;
+      default:
+        return null;
+    }
+  };
+
+  const sideContentItems = getSideContent();
+
   return (
     <>
       {/* Title and Subtitle - Only visible on Step 1 */}
@@ -118,40 +140,48 @@ export function GeneralBusinessForm() {
           {/* Step Indicator */}
           <StepIndicator currentStep={currentStep} />
 
-          <Form {...form}>
-            {/* Step 1: Your Details */}
-            {currentStep === Step.YOUR_DETAILS && <Step1 />}
-
-            {/* Step 2: General Liability */}
-            {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
-
-            {/* Step 3: Disclosure and Claims Details */}
-            {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
-
-            {/* Step 4: Welcome/Success Page */}
-            {currentStep === Step.CONFIRMATION && (
-              <Step5
-                firstName={form.getValues("name")?.split(" ")[0] || "there"}
-                email={form.getValues("email") || "your email"}
-              />
-            )}
-          </Form>
-
-          {/* Global Navigation - Left side only */}
-          <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 mt-6 sm:mt-12">
+          {/* Main content area with form and side content */}
+          <div className="xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24">
+            {/* Form content */}
             <div className="col-span-12 xl:col-span-8">
-              <GeneralBusinessNavigation
-                isFirstStep={currentStep === Step.YOUR_DETAILS}
-                isLastStep={currentStep === Step.CONFIRMATION}
-                currentStep={currentStep}
-                isSubmitting={isSubmitting}
-                onPrevious={handlePrevious}
-                onNext={handleNext}
-              />
+              <Form {...form}>
+                {/* Step 1: Your Details */}
+                {currentStep === Step.YOUR_DETAILS && <Step1 />}
+
+                {/* Step 2: General Liability */}
+                {currentStep === Step.GENERAL_LIABILITY && <Step2 />}
+
+                {/* Step 3: Disclosure and Claims Details */}
+                {currentStep === Step.DISCLOSURE_CLAIMS && <Step4 />}
+
+                {/* Step 4: Welcome/Success Page */}
+                {currentStep === Step.CONFIRMATION && (
+                  <Step5
+                    firstName={form.getValues("name")?.split(" ")[0] || "there"}
+                    email={form.getValues("email") || "your email"}
+                  />
+                )}
+              </Form>
+
+              {/* Global Navigation */}
+              <div className="mt-6 sm:mt-12">
+                <GeneralBusinessNavigation
+                  isFirstStep={currentStep === Step.YOUR_DETAILS}
+                  isLastStep={currentStep === Step.CONFIRMATION}
+                  currentStep={currentStep}
+                  isSubmitting={isSubmitting}
+                  onPrevious={handlePrevious}
+                  onNext={handleNext}
+                />
+              </div>
             </div>
-            <div className="col-span-12 xl:col-span-4">
-              {/* Empty space to match the SideContent layout */}
-            </div>
+
+            {/* Side Content - Desktop: right side, Mobile: after navigation */}
+            {sideContentItems && (
+              <div className="col-span-12 xl:col-span-4 order-last xl:order-none mt-6 sm:mt-12 xl:mt-0">
+                <SideContent items={sideContentItems} />
+              </div>
+            )}
           </div>
         </div>
       </div>

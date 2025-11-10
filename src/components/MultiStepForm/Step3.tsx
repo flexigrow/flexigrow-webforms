@@ -18,11 +18,9 @@ import {
   gender,
   benefitPeriods,
   waitingPeriods,
-  step3SideContent,
 } from "./data";
 import { NumericFormat } from "react-number-format";
 import { StepHeading } from "./StepHeading";
-import { SideContent } from "./SideContent";
 
 export function Step3() {
   const form = useFormContext<UnifiedFormData>();
@@ -78,8 +76,8 @@ export function Step3() {
     <div>
       <StepHeading>Enter your professional indemnity details:</StepHeading>
 
-      <div className="flex flex-col-reverse xl:grid xl:grid-cols-12 gap-8 sm:gap-12 xl:gap-24 sm:px-8 sm:px-10">
-        <div className="col-span-12 xl:col-span-8">
+      <div className="sm:px-10">
+        <div>
           <div className="space-y-6">
             {/* Professional Indemnity */}
             <div>
@@ -461,10 +459,6 @@ export function Step3() {
               </div>
             )}
           </div>
-        </div>
-
-        <div className="col-span-12 xl:col-span-4">
-          <SideContent items={step3SideContent} />
         </div>
       </div>
     </div>
