@@ -39,7 +39,7 @@ const SideContentItem = ({ icon, heading, subheading }: SideContentItem) => {
         <div className="text-lg sm:text-xl font-bold text-white mb-2">
           {heading}
         </div>
-        <div className="text-sm sm:text-base text-white font-normal">
+        <div className="text-sm sm:text-base text-white font-light">
           {subheading}
         </div>
       </div>

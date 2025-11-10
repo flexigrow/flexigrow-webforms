@@ -132,7 +132,7 @@ export function CleanersForm() {
             This will only take a{" "}
             <span className="text-[#C6FF00]">few minutes.</span>
           </h1>
-          <p className="text-lg sm:text-xl font-normal leading-[100%] text-white/80">
+          <p className="text-lg sm:text-xl font-normal leading-[140%] text-white/80">
             We just need a few quick details to tailor Flexigrow to your
             business needs.
           </p>

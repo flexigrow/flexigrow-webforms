@@ -19,7 +19,7 @@ export function Step1() {
       {/* Your details section */}
       <div className="sm:px-10">
         <div>
-          <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white">
+          <h2 className="text-lg sm:text-xl font-medium mb-6 sm:mb-8 text-white hidden md:block">
             Your details
           </h2>
 

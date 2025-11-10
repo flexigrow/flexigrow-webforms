@@ -15,9 +15,9 @@ export function Step5({
       <div className="mb-8 sm:mb-12 lg:mb-16">
         <StepHeading className="text-[32px] sm:text-[40px] lg:text-[56px] font-semibold leading-[42px] sm:leading-[52px] lg:leading-[72px] mb-3 sm:mb-4">
           Hi {firstName}! Welcome to Flexigrow, we're{" "}
-          <span className="text-primary">glad you're here!</span>
+          <span className="text-primary font-light">glad you're here!</span>
         </StepHeading>
-        <p className="text-[16px] sm:text-[18px] lg:text-[20px] font-normal leading-[150%] text-white">
+        <p className="text-[16px] sm:text-[18px] lg:text-[20px] font-light leading-[150%] text-white">
           We are now looking at your insurance needs and will be in contact
           shortly, if you are looking for the business software only we can get
           started straight away - we just sent an email to you at {email}
@@ -33,17 +33,17 @@ export function Step5({
         <div className="space-y-6 sm:space-y-8 text-left">
           {/* Step 1: Account Setup */}
           <div className="space-y-2 sm:space-y-4">
-            <h3 className="text-[18px] sm:text-[20px] lg:text-[24px] font-semibold leading-[22px] sm:leading-[26px] lg:leading-[30px] text-primary">
+            <h3 className="text-[18px] sm:text-[20px] lg:text-[24px] font-normal leading-[22px] sm:leading-[26px] lg:leading-[30px] text-primary">
               1. Your account is already set up
             </h3>
-            <p className="text-[16px] sm:text-[18px] lg:text-[22px] font-normal leading-[20px] sm:leading-[23px] lg:leading-[27px] text-white">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] font-light leading-[20px] sm:leading-[23px] lg:leading-[27px] text-white">
               We have just sent you an email with the activation link.
             </p>
           </div>
 
           {/* Step 2: Start Using */}
           <div className="space-y-2 sm:space-y-4">
-            <h3 className="text-[18px] sm:text-[20px] lg:text-[24px] font-semibold leading-[22px] sm:leading-[26px] lg:leading-[30px] text-primary">
+            <h3 className="text-[18px] sm:text-[20px] lg:text-[24px] font-normal leading-[22px] sm:leading-[26px] lg:leading-[30px] text-primary">
               2. Start using Flexigrow
             </h3>
           </div>
