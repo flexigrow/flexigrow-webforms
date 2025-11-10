@@ -80,9 +80,9 @@ export function GetInTouchForm() {
     <div className="bg-[#080808] text-white p-4 sm:p-8 lg:p-12">
       <div className="text-left text-white mb-6 sm:mb-10">
         <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold leading-tight lg:leading-[72px] mb-3">
-          Get in <span className="text-[#C6FF00]">touch.</span>
+          Get in <span className="text-[#C6FF00] font-light">touch.</span>
         </h1>
-        <p className="text-lg sm:text-xl font-normal leading-[100%] text-white/80">
+        <p className="text-lg sm:text-xl font-normal leading-[140%] text-white/80">
           We’ll get back to you shortly.
         </p>
       </div>

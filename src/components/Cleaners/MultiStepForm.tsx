@@ -105,9 +105,9 @@ export function CleanersForm() {
         <div className="text-left text-white p-4 sm:p-8 lg:p-12 overflow-hidden">
           <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold leading-tight lg:leading-[72px] mb-4">
             This will only take a{" "}
-            <span className="text-[#C6FF00]">few minutes.</span>
+            <span className="text-[#C6FF00] font-light">few minutes.</span>
           </h1>
-          <p className="text-lg sm:text-xl font-normal leading-[100%] text-white/80">
+          <p className="text-lg sm:text-xl font-normal leading-[140%] text-white/80">
             We just need a few quick details to tailor Flexigrow to your
             business needs.
           </p>
